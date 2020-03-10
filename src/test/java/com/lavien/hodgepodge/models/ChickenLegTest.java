@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models;
 
+import com.lavien.hodgepodge.models.ingredients.ChickenLeg;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

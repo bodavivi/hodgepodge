@@ -1,9 +1,9 @@
-package com.lavien.hodgepodge.models;
+package com.lavien.hodgepodge.models.coins;
 
-public abstract class Ingredient {
+public abstract class Coin {
   private int value;
 
-  Ingredient(int value) {
+  Coin(int value) {
     this.value=value;
   }
 
