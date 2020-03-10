@@ -1,10 +1,11 @@
 package com.lavien.hodgepodge.models.coins;
 
 public abstract class Coin {
+
   private int value;
 
   Coin(int value) {
-    this.value=value;
+    this.value = value;
   }
 
   public int getValue() {
