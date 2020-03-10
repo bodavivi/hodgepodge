@@ -4,9 +4,9 @@
 
 [![CircleCI](https://circleci.com/gh/bodavivi/hodgepodge.svg?style=shield&circle-token=7b6926d04790b4327a597011c568a5e835d51a38)](https://app.circleci.com/pipelines/github/bodavivi/hodgepodge)
 
-##### **Introduction**:
+## **Introduction**:
 
-Hodgepodge is a game based on [Century: Spice Road](https://boardgamegeek.com/boardgame/209685/century-spice-road) for 2-5 players, where players are alchemists who try to make the best mixtures in the province. For these mixtures, they need to use different ingredients.
+Hodgepodge is a game based on [Century: Spice Road](https://boardgamegeek.com/boardgame/209685/century-spice-road/images) for 2-5 players, where players are alchemists who try to make the best mixtures in the province. For these mixtures, they need to use different ingredients.
 
  Each turn, players perform one of four actions:
  - Establish a marketplace (by taking a market card),
@@ -30,4 +30,5 @@ If you want to try out the application, you will need to set up the following en
 | DATASOURCE_USERNAME  | your username        |
 | DATASOURCE_PASSWORD  | your password        |
 | DATASOURCE_DIALECT   | your database dialect|
+
 ---
