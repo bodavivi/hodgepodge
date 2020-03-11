@@ -1,4 +1,4 @@
-package com.lavien.hodgepodge.models.mixtures;
+package com.lavien.hodgepodge.models;
 
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
 import java.util.HashMap;
