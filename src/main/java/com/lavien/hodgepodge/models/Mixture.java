@@ -1,15 +1,17 @@
 package com.lavien.hodgepodge.models;
 
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
+
+import javax.persistence.ManyToMany;
 import java.util.HashMap;
 
 public class Mixture {
 
+  @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
   private int point;
 
-  public Mixture(
-      HashMap<Ingredient, Integer> ingredients, int point) {
+  public Mixture(HashMap<Ingredient, Integer> ingredients, int point) {
     this.ingredients = ingredients;
     this.point = point;
   }
@@ -18,8 +20,7 @@ public class Mixture {
     return ingredients;
   }
 
-  public void setIngredients(
-      HashMap<Ingredient, Integer> ingredients) {
+  public void setIngredients(HashMap<Ingredient, Integer> ingredients) {
     this.ingredients = ingredients;
   }
 

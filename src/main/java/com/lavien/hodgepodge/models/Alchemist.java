@@ -3,11 +3,14 @@ package com.lavien.hodgepodge.models;
 import com.lavien.hodgepodge.models.coins.Coin;
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
 import com.lavien.hodgepodge.models.merchants.Merchant;
+
+import javax.persistence.ManyToMany;
 import java.util.HashMap;
 import java.util.List;
 
 public class Alchemist {
 
+  @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
   private List<Mixture> mixtures;
   private List<Merchant> played;
