@@ -5,16 +5,22 @@ import com.lavien.hodgepodge.models.ingredients.Ingredient;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.List;
 
 public class Alchemist {
 
+  @Transient
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
+  @Transient
   private List<Mixture> mixtures;
+  @Transient
   private List<Merchant> played;
+  @Transient
   private List<Merchant> inHand;
+  @Transient
   private HashMap<Coin, Integer> coins;
 
   public Alchemist(

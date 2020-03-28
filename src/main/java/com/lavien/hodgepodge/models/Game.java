@@ -2,13 +2,23 @@ package com.lavien.hodgepodge.models;
 
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 
+@Entity
 public class Game {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  @Transient
   private ArrayList<Alchemist> alchemists;
+  @Transient
   private ArrayList<Merchant> availableMerchants;
+  @Transient
   private ArrayList<Merchant> unavailableMerchants;
+  @Transient
   private ArrayList<Mixture> availableMixtures;
+  @Transient
   private ArrayList<Mixture> unavailableMixtures;
 
   public Game() {

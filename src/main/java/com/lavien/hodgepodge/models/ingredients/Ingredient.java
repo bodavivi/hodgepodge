@@ -14,10 +14,13 @@ public class Ingredient {
   private Long id;
   private String name;
   private int value;
+  @Transient
   @ManyToMany
   private List<Alchemist> alchemists;
+  @Transient
   @ManyToMany
   private List<Merchant> merchants;
+  @Transient
   @ManyToMany
   private List<Mixture> mixtures;
 

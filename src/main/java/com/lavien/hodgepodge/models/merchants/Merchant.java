@@ -2,11 +2,16 @@ package com.lavien.hodgepodge.models.merchants;
 
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.HashMap;
 
+@Entity
 public abstract class Merchant {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
 
+  @Transient
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
 
