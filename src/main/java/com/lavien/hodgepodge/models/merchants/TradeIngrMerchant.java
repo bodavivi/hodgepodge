@@ -1,16 +1,18 @@
 package com.lavien.hodgepodge.models.merchants;
 
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.HashMap;
 
 public class TradeIngrMerchant extends Merchant {
-
   private HashMap<Ingredient, Integer> from;
   private HashMap<Ingredient, Integer> to;
 
-  public TradeIngrMerchant(
-      HashMap<Ingredient, Integer> from,
-      HashMap<Ingredient, Integer> to) {
+  public TradeIngrMerchant(HashMap<Ingredient, Integer> from, HashMap<Ingredient, Integer> to) {
     this.from = from;
     this.to = to;
   }
@@ -19,8 +21,7 @@ public class TradeIngrMerchant extends Merchant {
     return from;
   }
 
-  public void setFrom(
-      HashMap<Ingredient, Integer> from) {
+  public void setFrom(HashMap<Ingredient, Integer> from) {
     this.from = from;
   }
 
@@ -28,8 +29,8 @@ public class TradeIngrMerchant extends Merchant {
     return to;
   }
 
-  public void setTo(
-      HashMap<Ingredient, Integer> to) {
+  public void setTo(HashMap<Ingredient, Integer> to) {
     this.to = to;
   }
+
 }

@@ -1,7 +1,11 @@
 package com.lavien.hodgepodge.models.merchants;
 
-public class UpdateIngrMerchant extends Merchant {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+public class UpdateIngrMerchant extends Merchant {
   private int maxUpgrade;
 
   public UpdateIngrMerchant(int maxUpgrade) {
@@ -15,4 +19,5 @@ public class UpdateIngrMerchant extends Merchant {
   public void setMaxUpgrade(int maxUpgrade) {
     this.maxUpgrade = maxUpgrade;
   }
+
 }
