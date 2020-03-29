@@ -4,35 +4,56 @@ import com.lavien.hodgepodge.models.coins.Coin;
 import com.lavien.hodgepodge.models.ingredients.Ingredient;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
+import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 import java.util.HashMap;
 import java.util.List;
 
+@Entity
 public class Alchemist {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+
+  @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  private Game game;
 
   @Transient
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
+
   @Transient
   private List<Mixture> mixtures;
+
   @Transient
   private List<Merchant> played;
+
   @Transient
   private List<Merchant> inHand;
+
   @Transient
   private HashMap<Coin, Integer> coins;
 
-  public Alchemist(
-      HashMap<Ingredient, Integer> ingredients,
-      List<Mixture> mixtures, List<Merchant> played,
-      List<Merchant> inHand,
-      HashMap<Coin, Integer> coins) {
-    this.ingredients = ingredients;
-    this.mixtures = mixtures;
-    this.played = played;
-    this.inHand = inHand;
-    this.coins = coins;
+  public Alchemist() {
+
+  }
+
+  public Alchemist(Game game) {
+    this.game = game;
+    this.ingredients = new HashMap<>();
+    this.mixtures = new ArrayList<>();
+    this.played = new ArrayList<>();
+    this.inHand = new ArrayList<>();
+    this.coins = new HashMap<>();
   }
 
   public HashMap<Ingredient, Integer> getIngredients() {

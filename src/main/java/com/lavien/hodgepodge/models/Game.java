@@ -8,6 +8,7 @@ import java.util.List;
 
 @Entity
 public class Game {
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
@@ -20,11 +21,12 @@ public class Game {
   @ManyToMany(mappedBy = "gamesWhereAvailable")
   private List<Merchant> availableMerchants;
 
-  @Transient
-  private ArrayList<Alchemist> alchemists;
+  @OneToMany(mappedBy = "game")
+  private List<Alchemist> alchemists;
 
   @ManyToMany(mappedBy = "gamesWhereUnavailable")
   private List<Mixture> availableMixtures;
+
   @ManyToMany(mappedBy = "gamesWhereAvailable")
   private List<Mixture> unavailableMixtures;
 
@@ -77,7 +79,7 @@ public class Game {
     this.availableMerchants = availableMerchants;
   }
 
-  public ArrayList<Alchemist> getAlchemists() {
+  public List<Alchemist> getAlchemists() {
     return alchemists;
   }
 
