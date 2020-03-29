@@ -24,11 +24,11 @@ public class Game {
   @OneToMany(mappedBy = "game")
   private List<Alchemist> alchemists;
 
-  @Transient
-  private ArrayList<Mixture> availableMixtures;
+  @ManyToMany(mappedBy = "gamesWhereUnavailable")
+  private List<Mixture> availableMixtures;
 
-  @Transient
-  private ArrayList<Mixture> unavailableMixtures;
+  @ManyToMany(mappedBy = "gamesWhereAvailable")
+  private List<Mixture> unavailableMixtures;
 
   public Game() {
     this.unavailableMerchants = new ArrayList<>();
@@ -87,7 +87,7 @@ public class Game {
     this.alchemists = alchemists;
   }
 
-  public ArrayList<Mixture> getAvailableMixtures() {
+  public List<Mixture> getAvailableMixtures() {
     return availableMixtures;
   }
 
@@ -95,7 +95,7 @@ public class Game {
     this.availableMixtures = availableMixtures;
   }
 
-  public ArrayList<Mixture> getUnavailableMixtures() {
+  public List<Mixture> getUnavailableMixtures() {
     return unavailableMixtures;
   }
 
