@@ -56,6 +56,22 @@ public class Alchemist {
     this.coins = new HashMap<>();
   }
 
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public Game getGame() {
+    return game;
+  }
+
+  public void setGame(Game game) {
+    this.game = game;
+  }
+
   public HashMap<Ingredient, Integer> getIngredients() {
     return ingredients;
   }
