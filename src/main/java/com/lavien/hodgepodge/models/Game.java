@@ -4,32 +4,76 @@ import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
+
+  private String gameCode;
+
+  @ManyToMany(mappedBy = "gamesWhereUnavailable")
+  private List<Merchant> unavailableMerchants;
+
+  @ManyToMany(mappedBy = "gamesWhereAvailable")
+  private List<Merchant> availableMerchants;
+
   @Transient
   private ArrayList<Alchemist> alchemists;
-  @Transient
-  private ArrayList<Merchant> availableMerchants;
-  @Transient
-  private ArrayList<Merchant> unavailableMerchants;
   @Transient
   private ArrayList<Mixture> availableMixtures;
   @Transient
   private ArrayList<Mixture> unavailableMixtures;
 
   public Game() {
+    this.unavailableMerchants = new ArrayList<>();
+    this.availableMerchants = new ArrayList<>();
+    this.alchemists = new ArrayList<>();
+    this.availableMixtures = new ArrayList<>();
+    this.unavailableMixtures = new ArrayList<>();
   }
 
-  public Game(ArrayList<Alchemist> alchemists, ArrayList<Merchant> availableMerchants, ArrayList<Merchant> unavailableMerchants, ArrayList<Mixture> availableMixtures, ArrayList<Mixture> unavailableMixtures) {
-    this.alchemists = alchemists;
-    this.availableMerchants = availableMerchants;
+  public Game(String gameCode) {
+    this.gameCode = gameCode;
+    this.unavailableMerchants = new ArrayList<>();
+    this.availableMerchants = new ArrayList<>();
+    this.alchemists = new ArrayList<>();
+    this.availableMixtures = new ArrayList<>();
+    this.unavailableMixtures = new ArrayList<>();
+  }
+
+  public Long getId() {
+    return id;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getGameCode() {
+    return gameCode;
+  }
+
+  public void setGameCode(String gameCode) {
+    this.gameCode = gameCode;
+  }
+
+  public List<Merchant> getUnavailableMerchants() {
+    return unavailableMerchants;
+  }
+
+  public void setUnavailableMerchants(List<Merchant> unavailableMerchants) {
     this.unavailableMerchants = unavailableMerchants;
-    this.availableMixtures = availableMixtures;
-    this.unavailableMixtures = unavailableMixtures;
+  }
+
+  public List<Merchant> getAvailableMerchants() {
+    return availableMerchants;
+  }
+
+  public void setAvailableMerchants(List<Merchant> availableMerchants) {
+    this.availableMerchants = availableMerchants;
   }
 
   public ArrayList<Alchemist> getAlchemists() {
@@ -38,22 +82,6 @@ public class Game {
 
   public void setAlchemists(ArrayList<Alchemist> alchemists) {
     this.alchemists = alchemists;
-  }
-
-  public ArrayList<Merchant> getAvailableMerchants() {
-    return availableMerchants;
-  }
-
-  public void setAvailableMerchants(ArrayList<Merchant> availableMerchants) {
-    this.availableMerchants = availableMerchants;
-  }
-
-  public ArrayList<Merchant> getUnavailableMerchants() {
-    return unavailableMerchants;
-  }
-
-  public void setUnavailableMerchants(ArrayList<Merchant> unavailableMerchants) {
-    this.unavailableMerchants = unavailableMerchants;
   }
 
   public ArrayList<Mixture> getAvailableMixtures() {
