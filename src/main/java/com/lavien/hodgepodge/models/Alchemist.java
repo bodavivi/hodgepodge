@@ -18,12 +18,6 @@ public class Alchemist {
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   private Game game;
 
-  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
-  @JoinTable(name = "alchemist_ingredient",
-      joinColumns = @JoinColumn(name = "alchemist_id"),
-      inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
-  private List<Ingredient> ingredients;
-
   @ManyToMany(mappedBy = "alchemists")
   private List<Mixture> mixtures;
 
@@ -42,17 +36,25 @@ public class Alchemist {
   @Transient
   private HashMap<Coin, Integer> coins;
 
+  private int ingrRoot;
+  private int ingrMushroom;
+  private int ingrFeather;
+  private int ingrChickenLeg;
+
   public Alchemist() {
 
   }
 
   public Alchemist(Game game) {
     this.game = game;
-    this.ingredients = new ArrayList<>();
     this.mixtures = new ArrayList<>();
     this.playedMerchants = new ArrayList<>();
     this.merchantsInHand = new ArrayList<>();
     this.coins = new HashMap<>();
+    this.ingrRoot = 0;
+    this.ingrMushroom = 0;
+    this.ingrFeather = 0;
+    this.ingrChickenLeg = 0;
   }
 
   public Long getId() {
@@ -69,15 +71,6 @@ public class Alchemist {
 
   public void setGame(Game game) {
     this.game = game;
-  }
-
-  public List<Ingredient> getIngredients() {
-    return ingredients;
-  }
-
-  public void setIngredients(
-      List<Ingredient> ingredients) {
-    this.ingredients = ingredients;
   }
 
   public List<Mixture> getMixtures() {
@@ -110,5 +103,37 @@ public class Alchemist {
 
   public void setCoins(HashMap<Coin, Integer> coins) {
     this.coins = coins;
+  }
+
+  public int getIngrRoot() {
+    return ingrRoot;
+  }
+
+  public void setIngrRoot(int ingrRoot) {
+    this.ingrRoot = ingrRoot;
+  }
+
+  public int getIngrMushroom() {
+    return ingrMushroom;
+  }
+
+  public void setIngrMushroom(int ingrMushroom) {
+    this.ingrMushroom = ingrMushroom;
+  }
+
+  public int getIngrFeather() {
+    return ingrFeather;
+  }
+
+  public void setIngrFeather(int ingrFeather) {
+    this.ingrFeather = ingrFeather;
+  }
+
+  public int getIngrChickenLeg() {
+    return ingrChickenLeg;
+  }
+
+  public void setIngrChickenLeg(int ingrChickenLeg) {
+    this.ingrChickenLeg = ingrChickenLeg;
   }
 }
