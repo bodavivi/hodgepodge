@@ -17,9 +17,9 @@ public class Ingredient {
   @ManyToMany(mappedBy = "ingredients")
   private List<Mixture> mixtures;
 
-  @Transient
-  @ManyToMany
+  @ManyToMany(mappedBy = "ingredients")
   private List<Alchemist> alchemists;
+  
   @Transient
   @ManyToMany
   private List<Merchant> merchants;
