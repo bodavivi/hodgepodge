@@ -31,7 +31,7 @@ public class Alchemist {
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
 
-  @Transient
+  @ManyToMany(mappedBy = "alchemists")
   private List<Mixture> mixtures;
 
   @Transient
