@@ -14,12 +14,6 @@ public class Ingredient {
   private Long id;
   private String name;
   private int value;
-
-  @ManyToMany(mappedBy = "ingredients")
-  private List<Mixture> mixtures;
-
-  @ManyToMany(mappedBy = "ingredients")
-  private List<Alchemist> alchemists;
   
   @Transient
   @ManyToMany
@@ -28,7 +22,6 @@ public class Ingredient {
   public Ingredient(String name, int value) {
     this.name = name;
     this.value = value;
-    this.mixtures = new ArrayList<>();
   }
 
   Ingredient(int value) {
