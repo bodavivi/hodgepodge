@@ -23,10 +23,10 @@ public class Mixture {
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereAvailable;
 
-  private int ingRoot;
-  private int ingMushroom;
-  private int ingFeather;
-  private int ingChickenLeg;
+  private int ingrRoot;
+  private int ingrMushroom;
+  private int ingrFeather;
+  private int ingrChickenLeg;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "mixture_alchemist",
@@ -39,14 +39,14 @@ public class Mixture {
   public Mixture() {
   }
 
-  public Mixture(int point, int ingRoot, int ingMushroom, int ingFeather, int ingChickenLeg) {
+  public Mixture(int point, int ingrRoot, int ingrMushroom, int ingrFeather, int ingrChickenLeg) {
     this.gamesWhereUnavailable = new ArrayList<>();
     this.gamesWhereAvailable = new ArrayList<>();
     this.alchemists = new ArrayList<>();
     this.point = point;
-    this.ingRoot = ingRoot;
-    this.ingMushroom = ingMushroom;
-    this.ingFeather = ingFeather;
-    this.ingChickenLeg = ingChickenLeg;
+    this.ingrRoot = ingrRoot;
+    this.ingrMushroom = ingrMushroom;
+    this.ingrFeather = ingrFeather;
+    this.ingrChickenLeg = ingrChickenLeg;
   }
 }
