@@ -13,7 +13,7 @@ public class AlchemistTest {
 
   private Alchemist testAlchemist;
   private Game testGame = new Game("TestCode");
-  private Mixture testMixture = new Mixture(77);
+  private Mixture testMixture = new Mixture(77, new ArrayList<>());
   private Merchant testMerchant = new UpdateIngrMerchant(2);
 
   @Before
