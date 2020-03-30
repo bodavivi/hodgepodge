@@ -1,12 +1,12 @@
 package com.lavien.hodgepodge.models;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
 public class GameTest {
+
   private Game test;
 
   @Before
@@ -15,17 +15,17 @@ public class GameTest {
   }
 
   @Test
-  public void Game_IdNull_True(){
+  public void Game_IdNull_True() {
     assertNull(test.getId());
   }
 
   @Test(expected = NullPointerException.class)
-  public void Game_IdNotNull_NullPointerException(){
+  public void Game_IdNotNull_NullPointerException() {
     assertEquals(1, (long) test.getId());
   }
 
   @Test
-  public void Game_ListsSizeZero_True(){
+  public void Game_ListsSizeZero_True() {
     assertEquals(test.getGameCode(), "stay");
     assertEquals(test.getAlchemists().size(), 0);
     assertEquals(test.getAvailableMerchants().size(), 0);
@@ -35,7 +35,7 @@ public class GameTest {
   }
 
   @Test
-  public void Game_ListsSizeOne_False(){
+  public void Game_ListsSizeOne_False() {
     assertNotEquals(test.getGameCode(), "doNotStay");
     assertNotEquals(test.getAlchemists().size(), 1);
     assertNotEquals(test.getAvailableMerchants().size(), 1);
@@ -43,6 +43,4 @@ public class GameTest {
     assertNotEquals(1, test.getAvailableMixtures().size());
     assertNotEquals(1, test.getUnavailableMixtures().size());
   }
-
-
 }

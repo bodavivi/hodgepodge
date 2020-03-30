@@ -24,7 +24,7 @@ public class AlchemistTest {
   }
 
   @Test(expected = NullPointerException.class)
-  public void Alchemist_IdNotNull_NullPointerException(){
+  public void Alchemist_IdNotNull_NullPointerException() {
     assertEquals(1, (long) testAlchemist.getId());
   }
 
