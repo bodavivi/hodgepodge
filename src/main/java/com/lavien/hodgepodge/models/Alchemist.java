@@ -35,8 +35,8 @@ public class Alchemist {
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "hand_merchant_alchemist",
-  joinColumns = @JoinColumn(name = "alchemist_id"),
-  inverseJoinColumns = @JoinColumn(name = "merchant_id"))
+      joinColumns = @JoinColumn(name = "alchemist_id"),
+      inverseJoinColumns = @JoinColumn(name = "merchant_id"))
   private List<Merchant> merchantsInHand;
 
   @Transient
