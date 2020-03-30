@@ -20,15 +20,18 @@ public class Alchemist {
 
   @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   @JoinTable(name = "alchemist_ingredient",
-  joinColumns = @JoinColumn(name = "alchemist_id"),
-  inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+      joinColumns = @JoinColumn(name = "alchemist_id"),
+      inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
   private List<Ingredient> ingredients;
 
   @ManyToMany(mappedBy = "alchemists")
   private List<Mixture> mixtures;
 
-  @Transient
-  private List<Merchant> played;
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @JoinTable(name = "played_merchant_alchemist",
+      joinColumns = @JoinColumn(name = "alchemist_id"),
+      inverseJoinColumns = @JoinColumn(name = "merchant_id"))
+  private List<Merchant> playedMerchants;
 
   @Transient
   private List<Merchant> inHand;
@@ -44,7 +47,7 @@ public class Alchemist {
     this.game = game;
     this.ingredients = new ArrayList<>();
     this.mixtures = new ArrayList<>();
-    this.played = new ArrayList<>();
+    this.playedMerchants = new ArrayList<>();
     this.inHand = new ArrayList<>();
     this.coins = new HashMap<>();
   }
@@ -82,12 +85,12 @@ public class Alchemist {
     this.mixtures = mixtures;
   }
 
-  public List<Merchant> getPlayed() {
-    return played;
+  public List<Merchant> getPlayedMerchants() {
+    return playedMerchants;
   }
 
-  public void setPlayed(List<Merchant> played) {
-    this.played = played;
+  public void setPlayedMerchants(List<Merchant> playedMerchants) {
+    this.playedMerchants = playedMerchants;
   }
 
   public List<Merchant> getInHand() {
