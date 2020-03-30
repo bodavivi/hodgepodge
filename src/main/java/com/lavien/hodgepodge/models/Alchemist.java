@@ -4,15 +4,7 @@ import com.lavien.hodgepodge.models.coins.Coin;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import java.util.ArrayList;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,9 +18,11 @@ public class Alchemist {
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   private Game game;
 
-  @Transient
-  @ManyToMany
-  private HashMap<Ingredient, Integer> ingredients;
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @JoinTable(name = "alchemist_ingredient",
+  joinColumns = @JoinColumn(name = "alchemist_id"),
+  inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+  private List<Ingredient> ingredients;
 
   @ManyToMany(mappedBy = "alchemists")
   private List<Mixture> mixtures;
@@ -48,7 +42,7 @@ public class Alchemist {
 
   public Alchemist(Game game) {
     this.game = game;
-    this.ingredients = new HashMap<>();
+    this.ingredients = new ArrayList<>();
     this.mixtures = new ArrayList<>();
     this.played = new ArrayList<>();
     this.inHand = new ArrayList<>();
@@ -71,12 +65,12 @@ public class Alchemist {
     this.game = game;
   }
 
-  public HashMap<Ingredient, Integer> getIngredients() {
+  public List<Ingredient> getIngredients() {
     return ingredients;
   }
 
   public void setIngredients(
-      HashMap<Ingredient, Integer> ingredients) {
+      List<Ingredient> ingredients) {
     this.ingredients = ingredients;
   }
 
