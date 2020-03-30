@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.models.Ingredient;
 
@@ -27,6 +28,12 @@ public abstract class Merchant {
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereUnavailable;
 
+  @ManyToMany(mappedBy = "playedMerchants")
+  private List<Alchemist> alchemistsWhoPlayed;
+
+  @ManyToMany(mappedBy = "merchantsInHand")
+  private List<Alchemist> alchemistsInHand;
+
   @Transient
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
@@ -35,6 +42,8 @@ public abstract class Merchant {
     this.gamesWhereAvailable = new ArrayList<>();
     this.gamesWhereUnavailable = new ArrayList<>();
     this.ingredients = new HashMap<>();
+    this.alchemistsWhoPlayed = new ArrayList<>();
+    this.alchemistsInHand = new ArrayList<>();
   }
 
   public Long getId() {
@@ -67,5 +76,13 @@ public abstract class Merchant {
 
   public void setIngredients(HashMap<Ingredient, Integer> ingredients) {
     this.ingredients = ingredients;
+  }
+
+  public List<Alchemist> getAlchemistsWhoPlayed() {
+    return alchemistsWhoPlayed;
+  }
+
+  public void setAlchemistsWhoPlayed(List<Alchemist> alchemistsWhoPlayed) {
+    this.alchemistsWhoPlayed = alchemistsWhoPlayed;
   }
 }
