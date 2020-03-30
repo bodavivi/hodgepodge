@@ -33,6 +33,12 @@ public class Alchemist {
       inverseJoinColumns = @JoinColumn(name = "merchant_id"))
   private List<Merchant> playedMerchants;
 
+  @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+  @JoinTable(name = "hand_merchant_alchemist",
+  joinColumns = @JoinColumn(name = "alchemist_id"),
+  inverseJoinColumns = @JoinColumn(name = "merchant_id"))
+  private List<Merchant> merchantsInHand;
+
   @Transient
   private List<Merchant> inHand;
 
@@ -49,6 +55,7 @@ public class Alchemist {
     this.mixtures = new ArrayList<>();
     this.playedMerchants = new ArrayList<>();
     this.inHand = new ArrayList<>();
+    
     this.coins = new HashMap<>();
   }
 

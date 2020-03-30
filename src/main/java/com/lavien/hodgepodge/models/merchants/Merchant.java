@@ -31,6 +31,9 @@ public abstract class Merchant {
   @ManyToMany(mappedBy = "playedMerchants")
   private List<Alchemist> alchemistsWhoPlayed;
 
+  @ManyToMany(mappedBy = "merchantsInHand")
+  private List<Alchemist> alchemistsInHand;
+
   @Transient
   @ManyToMany
   private HashMap<Ingredient, Integer> ingredients;
