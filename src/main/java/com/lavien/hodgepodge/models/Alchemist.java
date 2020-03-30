@@ -40,9 +40,6 @@ public class Alchemist {
   private List<Merchant> merchantsInHand;
 
   @Transient
-  private List<Merchant> inHand;
-
-  @Transient
   private HashMap<Coin, Integer> coins;
 
   public Alchemist() {
@@ -54,8 +51,7 @@ public class Alchemist {
     this.ingredients = new ArrayList<>();
     this.mixtures = new ArrayList<>();
     this.playedMerchants = new ArrayList<>();
-    this.inHand = new ArrayList<>();
-    
+    this.merchantsInHand = new ArrayList<>();
     this.coins = new HashMap<>();
   }
 
@@ -100,12 +96,12 @@ public class Alchemist {
     this.playedMerchants = playedMerchants;
   }
 
-  public List<Merchant> getInHand() {
-    return inHand;
+  public List<Merchant> getMerchantsInHand() {
+    return merchantsInHand;
   }
 
-  public void setInHand(List<Merchant> inHand) {
-    this.inHand = inHand;
+  public void setMerchantsInHand(List<Merchant> merchantsInHand) {
+    this.merchantsInHand = merchantsInHand;
   }
 
   public HashMap<Coin, Integer> getCoins() {

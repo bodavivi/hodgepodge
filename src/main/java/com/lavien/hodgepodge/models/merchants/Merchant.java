@@ -43,6 +43,7 @@ public abstract class Merchant {
     this.gamesWhereUnavailable = new ArrayList<>();
     this.ingredients = new HashMap<>();
     this.alchemistsWhoPlayed = new ArrayList<>();
+    this.alchemistsInHand = new ArrayList<>();
   }
 
   public Long getId() {
