@@ -1,16 +1,13 @@
 package com.lavien.hodgepodge.models;
 
-import com.lavien.hodgepodge.models.ingredients.Ingredient;
-
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
 public class Mixture {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -25,8 +22,11 @@ public class Mixture {
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereAvailable;
 
-  @Transient
-  private HashMap<Ingredient, Integer> ingredients;
+  @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+  @JoinTable(name = "mixture_ingredient",
+  joinColumns = @JoinColumn(name = "mixture_id"),
+  inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+  private List<Ingredient> ingredients;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "mixture_alchemist",
@@ -39,10 +39,10 @@ public class Mixture {
   public Mixture() {
   }
 
-  public Mixture(int point) {
+  public Mixture(int point, List<Ingredient> ingredients) {
     this.gamesWhereUnavailable = new ArrayList<>();
     this.gamesWhereAvailable = new ArrayList<>();
-    this.ingredients = new HashMap<>();
+    this.ingredients = ingredients;
     this.alchemists = new ArrayList<>();
     this.point = point;
   }

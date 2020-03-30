@@ -1,7 +1,6 @@
 package com.lavien.hodgepodge.models;
 
 import com.lavien.hodgepodge.models.coins.Coin;
-import com.lavien.hodgepodge.models.ingredients.Ingredient;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import java.util.ArrayList;
@@ -21,7 +20,7 @@ import java.util.List;
 public class Alchemist {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)

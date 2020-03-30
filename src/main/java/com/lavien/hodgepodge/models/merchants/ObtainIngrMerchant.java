@@ -1,6 +1,6 @@
 package com.lavien.hodgepodge.models.merchants;
 
-import com.lavien.hodgepodge.models.ingredients.Ingredient;
+import com.lavien.hodgepodge.models.Ingredient;
 
 import java.util.List;
 
