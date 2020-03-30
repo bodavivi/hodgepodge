@@ -1,11 +1,7 @@
 package com.lavien.hodgepodge.models.merchants;
 
-import com.lavien.hodgepodge.models.ingredients.Ingredient;
+import com.lavien.hodgepodge.models.Ingredient;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.HashMap;
 
 public class TradeIngrMerchant extends Merchant {

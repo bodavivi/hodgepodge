@@ -1,7 +1,7 @@
 package com.lavien.hodgepodge.models.merchants;
 
 import com.lavien.hodgepodge.models.Game;
-import com.lavien.hodgepodge.models.ingredients.Ingredient;
+import com.lavien.hodgepodge.models.Ingredient;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 public abstract class Merchant {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
