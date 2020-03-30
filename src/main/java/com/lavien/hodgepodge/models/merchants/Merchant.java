@@ -10,6 +10,7 @@ import java.util.List;
 
 @Entity
 public abstract class Merchant {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;

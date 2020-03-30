@@ -6,6 +6,7 @@ import java.util.List;
 
 @Entity
 public class Mixture {
+
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
@@ -13,7 +14,7 @@ public class Mixture {
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "unavailable_mixture_game",
       joinColumns = @JoinColumn(name = "mixture_id"),
-  inverseJoinColumns = @JoinColumn(name = "game_id"))
+      inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereUnavailable;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
@@ -24,14 +25,14 @@ public class Mixture {
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "mixture_ingredient",
-  joinColumns = @JoinColumn(name = "mixture_id"),
-  inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
+      joinColumns = @JoinColumn(name = "mixture_id"),
+      inverseJoinColumns = @JoinColumn(name = "ingredient_id"))
   private List<Ingredient> ingredients;
 
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "mixture_alchemist",
       joinColumns = @JoinColumn(name = "mixture_id"),
-  inverseJoinColumns = @JoinColumn(name = "alchemist_id"))
+      inverseJoinColumns = @JoinColumn(name = "alchemist_id"))
   private List<Alchemist> alchemists;
 
   private int point;

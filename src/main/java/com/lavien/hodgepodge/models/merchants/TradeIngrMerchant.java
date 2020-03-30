@@ -5,6 +5,7 @@ import com.lavien.hodgepodge.models.Ingredient;
 import java.util.HashMap;
 
 public class TradeIngrMerchant extends Merchant {
+
   private HashMap<Ingredient, Integer> from;
   private HashMap<Ingredient, Integer> to;
 
