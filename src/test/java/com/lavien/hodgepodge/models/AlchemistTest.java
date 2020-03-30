@@ -20,7 +20,7 @@ public class AlchemistTest {
   public void setUp() throws Exception {
     testAlchemist = new Alchemist(testGame);
     testAlchemist.setMixtures(new ArrayList<>(Arrays.asList(testMixture)));
-    testAlchemist.setInHand(new ArrayList<>(Arrays.asList(testMerchant)));
+    testAlchemist.setMerchantsInHand(new ArrayList<>(Arrays.asList(testMerchant)));
   }
 
   @Test(expected = NullPointerException.class)
@@ -42,7 +42,7 @@ public class AlchemistTest {
 
   @Test
   public void Alchemist_ContainsOneMerchantInHand_True() {
-    assertEquals(1, testAlchemist.getInHand().size());
-    assertEquals(testMerchant, testAlchemist.getInHand().get(0));
+    assertEquals(1, testAlchemist.getMerchantsInHand().size());
+    assertEquals(testMerchant, testAlchemist.getMerchantsInHand().get(0));
   }
 }
