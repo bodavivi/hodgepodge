@@ -1,11 +1,9 @@
 package com.lavien.hodgepodge.models;
 
-import com.lavien.hodgepodge.models.coins.Coin;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import java.util.ArrayList;
 import javax.persistence.*;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -33,13 +31,13 @@ public class Alchemist {
       inverseJoinColumns = @JoinColumn(name = "merchant_id"))
   private List<Merchant> merchantsInHand;
 
-  @Transient
-  private HashMap<Coin, Integer> coins;
-
   private int ingrRoot;
   private int ingrMushroom;
   private int ingrFeather;
   private int ingrChickenLeg;
+
+  private int goldCoins;
+  private int silverCoins;
 
   public Alchemist() {
 
@@ -50,11 +48,12 @@ public class Alchemist {
     this.mixtures = new ArrayList<>();
     this.playedMerchants = new ArrayList<>();
     this.merchantsInHand = new ArrayList<>();
-    this.coins = new HashMap<>();
     this.ingrRoot = 0;
     this.ingrMushroom = 0;
     this.ingrFeather = 0;
     this.ingrChickenLeg = 0;
+    this.goldCoins = 0;
+    this.silverCoins = 0;
   }
 
   public Long getId() {
@@ -97,14 +96,6 @@ public class Alchemist {
     this.merchantsInHand = merchantsInHand;
   }
 
-  public HashMap<Coin, Integer> getCoins() {
-    return coins;
-  }
-
-  public void setCoins(HashMap<Coin, Integer> coins) {
-    this.coins = coins;
-  }
-
   public int getIngrRoot() {
     return ingrRoot;
   }
@@ -135,5 +126,21 @@ public class Alchemist {
 
   public void setIngrChickenLeg(int ingrChickenLeg) {
     this.ingrChickenLeg = ingrChickenLeg;
+  }
+
+  public int getGoldCoins() {
+    return goldCoins;
+  }
+
+  public void setGoldCoins(int goldCoins) {
+    this.goldCoins = goldCoins;
+  }
+
+  public int getSilverCoins() {
+    return silverCoins;
+  }
+
+  public void setSilverCoins(int silverCoins) {
+    this.silverCoins = silverCoins;
   }
 }
