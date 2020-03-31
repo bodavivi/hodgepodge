@@ -1,23 +1,15 @@
 package com.lavien.hodgepodge.models.merchants;
 
-import com.lavien.hodgepodge.models.Ingredient;
-
-import java.util.List;
-
 public class ObtainIngrMerchant extends Merchant {
+  private int ingrRootToGet;
+  private int ingrMushroomToGet;
+  private int ingrFeatherToGet;
+  private int ingrChickenLegToGet;
 
-  private List<Ingredient> ingredientsToGet;
-
-  public ObtainIngrMerchant(List<Ingredient> ingredientsToGet) {
-    this.ingredientsToGet = ingredientsToGet;
+  public ObtainIngrMerchant(int ingrRootToGet, int ingrMushroomToGet, int ingrFeatherToGet, int ingrChickenLegToGet) {
+    this.ingrRootToGet = ingrRootToGet;
+    this.ingrMushroomToGet = ingrMushroomToGet;
+    this.ingrFeatherToGet = ingrFeatherToGet;
+    this.ingrChickenLegToGet = ingrChickenLegToGet;
   }
-
-  public List<Ingredient> getIngredientsToGet() {
-    return ingredientsToGet;
-  }
-
-  public void setIngredientsToGet(List<Ingredient> ingredientsToGet) {
-    this.ingredientsToGet = ingredientsToGet;
-  }
-
 }
