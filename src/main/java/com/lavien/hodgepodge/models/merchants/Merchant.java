@@ -85,4 +85,12 @@ public abstract class Merchant {
   public void setAlchemistsWhoPlayed(List<Alchemist> alchemistsWhoPlayed) {
     this.alchemistsWhoPlayed = alchemistsWhoPlayed;
   }
+
+  public List<Alchemist> getAlchemistsInHand() {
+    return alchemistsInHand;
+  }
+
+  public void setAlchemistsInHand(List<Alchemist> alchemistsInHand) {
+    this.alchemistsInHand = alchemistsInHand;
+  }
 }
