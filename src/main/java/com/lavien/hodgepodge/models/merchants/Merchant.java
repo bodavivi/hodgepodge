@@ -2,11 +2,9 @@ package com.lavien.hodgepodge.models.merchants;
 
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
-import com.lavien.hodgepodge.models.Ingredient;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Entity
@@ -34,14 +32,9 @@ public abstract class Merchant {
   @ManyToMany(mappedBy = "merchantsInHand")
   private List<Alchemist> alchemistsInHand;
 
-  @Transient
-  @ManyToMany
-  private HashMap<Ingredient, Integer> ingredients;
-
   public Merchant() {
     this.gamesWhereAvailable = new ArrayList<>();
     this.gamesWhereUnavailable = new ArrayList<>();
-    this.ingredients = new HashMap<>();
     this.alchemistsWhoPlayed = new ArrayList<>();
     this.alchemistsInHand = new ArrayList<>();
   }
@@ -68,14 +61,6 @@ public abstract class Merchant {
 
   public void setGamesWhereUnavailable(List<Game> gamesWhereUnavailable) {
     this.gamesWhereUnavailable = gamesWhereUnavailable;
-  }
-
-  public HashMap<Ingredient, Integer> getIngredients() {
-    return ingredients;
-  }
-
-  public void setIngredients(HashMap<Ingredient, Integer> ingredients) {
-    this.ingredients = ingredients;
   }
 
   public List<Alchemist> getAlchemistsWhoPlayed() {
