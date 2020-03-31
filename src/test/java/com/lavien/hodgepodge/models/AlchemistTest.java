@@ -14,7 +14,7 @@ public class AlchemistTest {
   private Alchemist testAlchemist;
   private Game testGame = new Game("TestCode");
   private Mixture testMixture = new Mixture(77, 1, 1, 1, 1);
-  private Merchant testMerchant = new UpdateIngrMerchant(2);
+  private Merchant testMerchant = new UpdateIngrMerchant(1,1,1,1,1,1);
 
   @Before
   public void setUp() throws Exception {
