@@ -16,6 +16,7 @@ public class GameServiceImpl implements GameService {
   public Game setUp(List<Alchemist> alchemists) {
     Game game = new Game();
     game.setAlchemists(randomizeAlchemist(alchemists));
+    setUpStarterIngredients(game);
     return game;
   }
 
@@ -29,5 +30,24 @@ public class GameServiceImpl implements GameService {
       i--;
     }
     return alchemistsRandomOrder;
+  }
+
+  private void setUpStarterIngredients(Game game) {
+    List<Alchemist> alchemists = game.getAlchemists();
+
+    alchemists.get(0).setIngrRoot(3);
+    alchemists.get(1).setIngrRoot(4);
+
+    if (alchemists.size() >= 3) {
+     alchemists.get(2).setIngrRoot(4);
+     if (alchemists.size() >= 4) {
+       alchemists.get(3).setIngrRoot(3);
+       alchemists.get(3).setIngrMushroom(1);
+       if (alchemists.size() == 5) {
+         alchemists.get(4).setIngrRoot(3);
+         alchemists.get(4).setIngrMushroom(1);
+       }
+     }
+   }
   }
 }
