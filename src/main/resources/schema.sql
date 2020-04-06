@@ -1,0 +1,11 @@
+DROP TABLE if exists alchemist;
+DROP TABLE if exists available_merchant_game;
+DROP TABLE if exists available_mixture_game;
+DROP TABLE if exists game;
+DROP TABLE if exists hand_merchant_alchemist;
+DROP TABLE if exists merchant;
+DROP TABLE if exists mixture;
+DROP TABLE if exists mixture_alchemist;
+DROP TABLE if exists played_merchant_alchemist;
+DROP TABLE if exists unavailable_merchant_game;
+DROP TABLE if exists unavailable_mixture_game;
