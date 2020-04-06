@@ -1,5 +1,8 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import javax.persistence.Entity;
+
+@Entity
 public class UpdateIngrMerchant extends Merchant {
   private int ingrRootFrom;
   private int ingrMushroomFrom;
@@ -8,6 +11,8 @@ public class UpdateIngrMerchant extends Merchant {
   private int ingrFeatherTo;
   private int ingrChickenLegTo;
 
+  public UpdateIngrMerchant() {
+  }
 
   public UpdateIngrMerchant(int ingrRootFrom, int ingrMushroomFrom, int ingrFeatherFrom, int ingrMushroomTo, int ingrFeatherTo, int ingrChickenLegTo) {
     this.ingrRootFrom = ingrRootFrom;
