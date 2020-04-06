@@ -1,8 +1,3 @@
-SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE if exists alchemist;
-DROP TABLE if exists game;
-DROP TABLE if exists merchant;
-DROP TABLE if exists mixture;
 DROP TABLE if exists available_merchant_game;
 DROP TABLE if exists available_mixture_game;
 DROP TABLE if exists unavailable_merchant_game;
@@ -10,7 +5,11 @@ DROP TABLE if exists unavailable_mixture_game;
 DROP TABLE if exists mixture_alchemist;
 DROP TABLE if exists hand_merchant_alchemist;
 DROP TABLE if exists played_merchant_alchemist;
-SET FOREIGN_KEY_CHECKS = 0;
+
+DROP TABLE if exists alchemist;
+DROP TABLE if exists game;
+DROP TABLE if exists merchant;
+DROP TABLE if exists mixture;
 
 CREATE TABLE alchemist (
     id               bigint auto_increment primary key,
@@ -34,13 +33,14 @@ CREATE TABLE merchant (
 
 CREATE TABLE mixture (
     id               bigint auto_increment primary key,
-    gold_coin        int not null,
+    name             varchar(255) null,
+    gold_coin        int,
     ingr_chicken_leg int not null,
     ingr_feather     int not null,
     ingr_mushroom    int not null,
     ingr_root        int not null,
     point            int not null,
-    silver_coin      int not null
+    silver_coin      int
 );
 
 CREATE TABLE available_merchant_game (
