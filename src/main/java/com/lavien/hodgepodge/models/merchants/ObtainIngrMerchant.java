@@ -1,10 +1,18 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity(name = "Halleluja")
+@DiscriminatorValue("Lavien")
 public class ObtainIngrMerchant extends Merchant {
   private int ingrRootToGet;
   private int ingrMushroomToGet;
   private int ingrFeatherToGet;
   private int ingrChickenLegToGet;
+
+  public ObtainIngrMerchant() {
+  }
 
   public ObtainIngrMerchant(int ingrRootToGet, int ingrMushroomToGet, int ingrFeatherToGet, int ingrChickenLegToGet) {
     this.ingrRootToGet = ingrRootToGet;
