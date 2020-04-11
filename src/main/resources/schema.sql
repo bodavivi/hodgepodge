@@ -41,12 +41,7 @@ CREATE TABLE merchant (
     trade_feather_to        int,
     trade_chicken_leg_from  int,
     trade_chicken_leg_to    int,
-    update_from_root        int,
-    update_from_mushroom    int,
-    update_from_feather     int,
-    update_to_mushroom      int,
-    update_to_feather       int,
-    update_to_chicken_leg   int
+    number_of_updates       int
 );
 
 CREATE TABLE mixture (
