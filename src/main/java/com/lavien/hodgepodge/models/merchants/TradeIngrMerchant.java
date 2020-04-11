@@ -1,95 +1,105 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name = "trade_m")
 public class TradeIngrMerchant extends Merchant {
 
-  private int ingrRootFrom;
-  private int ingrRootTo;
-  private int ingrMushroomFrom;
-  private int ingrMushroomTo;
-  private int ingrFeatherFrom;
-  private int ingrFeatherTo;
-  private int ingrChickenLegFrom;
-  private int ingrChickenLegTo;
+  @Column(name = "trade_root_from")
+  private int tradeFromRoot;
+  @Column(name = "trade_root_to")
+  private int tradeToRoot;
+  @Column(name = "trade_mushroom_from")
+  private int tradeFromMushroom;
+  @Column(name = "trade_mushroom_to")
+  private int tradeToMushroom;
+  @Column(name = "trade_feather_from")
+  private int tradeFromFeather;
+  @Column(name = "trade_feather_to")
+  private int tradeToFeather;
+  @Column(name = "trade_chicken_leg_from")
+  private int tradeFromChickenLeg;
+  @Column(name = "trade_chicken_leg_to")
+  private int tradeToChickenLeg;
 
   public TradeIngrMerchant() {
   }
 
-  public TradeIngrMerchant(int ingrRootFrom, int ingrRootTo, int ingrMushroomFrom, int ingrMushroomTo,
-                           int ingrFeatherFrom, int ingrFeatherTo, int ingrChickenLegFrom, int ingrChickenLegTo) {
-    this.ingrRootFrom = ingrRootFrom;
-    this.ingrRootTo = ingrRootTo;
-    this.ingrMushroomFrom = ingrMushroomFrom;
-    this.ingrMushroomTo = ingrMushroomTo;
-    this.ingrFeatherFrom = ingrFeatherFrom;
-    this.ingrFeatherTo = ingrFeatherTo;
-    this.ingrChickenLegFrom = ingrChickenLegFrom;
-    this.ingrChickenLegTo = ingrChickenLegTo;
+  public TradeIngrMerchant(int ingrRootFrom, int ingrRootTo, int ingrMushroomFrom,
+      int ingrMushroomTo, int ingrFeatherFrom, int ingrFeatherTo, int ingrChickenLegFrom,
+      int ingrChickenLegTo) {
+    this.tradeFromRoot = ingrRootFrom;
+    this.tradeToRoot = ingrRootTo;
+    this.tradeFromMushroom = ingrMushroomFrom;
+    this.tradeToMushroom = ingrMushroomTo;
+    this.tradeFromFeather = ingrFeatherFrom;
+    this.tradeToFeather = ingrFeatherTo;
+    this.tradeFromChickenLeg = ingrChickenLegFrom;
+    this.tradeToChickenLeg = ingrChickenLegTo;
   }
 
-  public int getIngrRootFrom() {
-    return ingrRootFrom;
+  public int getTradeFromRoot() {
+    return tradeFromRoot;
   }
 
-  public void setIngrRootFrom(int ingrRootFrom) {
-    this.ingrRootFrom = ingrRootFrom;
+  public void setTradeFromRoot(int tradeFromRoot) {
+    this.tradeFromRoot = tradeFromRoot;
   }
 
-  public int getIngrRootTo() {
-    return ingrRootTo;
+  public int getTradeToRoot() {
+    return tradeToRoot;
   }
 
-  public void setIngrRootTo(int ingrRootTo) {
-    this.ingrRootTo = ingrRootTo;
+  public void setTradeToRoot(int tradeToRoot) {
+    this.tradeToRoot = tradeToRoot;
   }
 
-  public int getIngrMushroomFrom() {
-    return ingrMushroomFrom;
+  public int getTradeFromMushroom() {
+    return tradeFromMushroom;
   }
 
-  public void setIngrMushroomFrom(int ingrMushroomFrom) {
-    this.ingrMushroomFrom = ingrMushroomFrom;
+  public void setTradeFromMushroom(int tradeFromMushroom) {
+    this.tradeFromMushroom = tradeFromMushroom;
   }
 
-  public int getIngrMushroomTo() {
-    return ingrMushroomTo;
+  public int getTradeToMushroom() {
+    return tradeToMushroom;
   }
 
-  public void setIngrMushroomTo(int ingrMushroomTo) {
-    this.ingrMushroomTo = ingrMushroomTo;
+  public void setTradeToMushroom(int tradeToMushroom) {
+    this.tradeToMushroom = tradeToMushroom;
   }
 
-  public int getIngrFeatherFrom() {
-    return ingrFeatherFrom;
+  public int getTradeFromFeather() {
+    return tradeFromFeather;
   }
 
-  public void setIngrFeatherFrom(int ingrFeatherFrom) {
-    this.ingrFeatherFrom = ingrFeatherFrom;
+  public void setTradeFromFeather(int tradeFromFeather) {
+    this.tradeFromFeather = tradeFromFeather;
   }
 
-  public int getIngrFeatherTo() {
-    return ingrFeatherTo;
+  public int getTradeToFeather() {
+    return tradeToFeather;
   }
 
-  public void setIngrFeatherTo(int ingrFeatherTo) {
-    this.ingrFeatherTo = ingrFeatherTo;
+  public void setTradeToFeather(int tradeToFeather) {
+    this.tradeToFeather = tradeToFeather;
   }
 
-  public int getIngrChickenLegFrom() {
-    return ingrChickenLegFrom;
+  public int getTradeFromChickenLeg() {
+    return tradeFromChickenLeg;
   }
 
-  public void setIngrChickenLegFrom(int ingrChickenLegFrom) {
-    this.ingrChickenLegFrom = ingrChickenLegFrom;
+  public void setTradeFromChickenLeg(int tradeFromChickenLeg) {
+    this.tradeFromChickenLeg = tradeFromChickenLeg;
   }
 
-  public int getIngrChickenLegTo() {
-    return ingrChickenLegTo;
+  public int getTradeToChickenLeg() {
+    return tradeToChickenLeg;
   }
 
-  public void setIngrChickenLegTo(int ingrChickenLegTo) {
-    this.ingrChickenLegTo = ingrChickenLegTo;
+  public void setTradeToChickenLeg(int tradeToChickenLeg) {
+    this.tradeToChickenLeg = tradeToChickenLeg;
   }
 }

@@ -7,9 +7,9 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "merchant")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "Merchant_type")
+// Source: https://stackoverflow.com/questions/53115122/handling-entities-inheritance-spring-boot
 public abstract class Merchant {
 
   @Id
