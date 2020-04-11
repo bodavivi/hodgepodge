@@ -5,7 +5,6 @@ DROP TABLE if exists unavailable_mixture_game;
 DROP TABLE if exists mixture_alchemist;
 DROP TABLE if exists hand_merchant_alchemist;
 DROP TABLE if exists played_merchant_alchemist;
-
 DROP TABLE if exists alchemist;
 DROP TABLE if exists game;
 DROP TABLE if exists merchant;
@@ -28,7 +27,26 @@ CREATE TABLE game (
 );
 
 CREATE TABLE merchant (
-    id bigint auto_increment primary key
+    id                      bigint auto_increment primary key,
+    dtype                   VARCHAR(80),
+    obtain_root             int,
+    obtain_mushroom         int,
+    obtain_feather          int,
+    obtain_chicken_leg      int,
+    trade_root_from         int,
+    trade_root_to           int,
+    trade_mushroom_from     int,
+    trade_mushroom_to       int,
+    trade_feather_from      int,
+    trade_feather_to        int,
+    trade_chicken_leg_from  int,
+    trade_chicken_leg_to    int,
+    update_from_root        int,
+    update_from_mushroom    int,
+    update_from_feather     int,
+    update_to_mushroom      int,
+    update_to_feather       int,
+    update_to_chicken_leg   int
 );
 
 CREATE TABLE mixture (

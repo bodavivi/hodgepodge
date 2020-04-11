@@ -8,5 +8,4 @@ public class HodgepodgeApplication {
   public static void main(String[] args) {
     SpringApplication.run(HodgepodgeApplication.class, args);
   }
-
 }

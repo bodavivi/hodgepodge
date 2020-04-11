@@ -1,73 +1,82 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity
+@Entity(name = "update_m")
 public class UpdateIngrMerchant extends Merchant {
-  private int ingrRootFrom;
-  private int ingrMushroomFrom;
-  private int ingrFeatherFrom;
-  private int ingrMushroomTo;
-  private int ingrFeatherTo;
-  private int ingrChickenLegTo;
+
+  @Column(name = "update_from_root")
+  private int updateFromRoot;
+  @Column(name = "update_from_mushroom")
+  private int updateFromMushroom;
+  @Column(name = "update_from_feather")
+  private int updateFromFeather;
+  @Column(name = "update_to_mushroom")
+  private int updateToMushroom;
+  @Column(name = "update_to_feather")
+  private int updateToFeather;
+  @Column(name = "update_to_chicken_leg")
+  private int updateToChickenLeg;
 
   public UpdateIngrMerchant() {
   }
 
-  public UpdateIngrMerchant(int ingrRootFrom, int ingrMushroomFrom, int ingrFeatherFrom, int ingrMushroomTo, int ingrFeatherTo, int ingrChickenLegTo) {
-    this.ingrRootFrom = ingrRootFrom;
-    this.ingrMushroomFrom = ingrMushroomFrom;
-    this.ingrFeatherFrom = ingrFeatherFrom;
-    this.ingrMushroomTo = ingrMushroomTo;
-    this.ingrFeatherTo = ingrFeatherTo;
-    this.ingrChickenLegTo = ingrChickenLegTo;
+  public UpdateIngrMerchant(int ingrRootFrom, int ingrMushroomFrom, int ingrFeatherFrom,
+      int ingrMushroomTo, int ingrFeatherTo, int ingrChickenLegTo) {
+    this.updateFromRoot = ingrRootFrom;
+    this.updateFromMushroom = ingrMushroomFrom;
+    this.updateFromFeather = ingrFeatherFrom;
+    this.updateToMushroom = ingrMushroomTo;
+    this.updateToFeather = ingrFeatherTo;
+    this.updateToChickenLeg = ingrChickenLegTo;
   }
 
-  public int getIngrRootFrom() {
-    return ingrRootFrom;
+  public int getUpdateFromRoot() {
+    return updateFromRoot;
   }
 
-  public void setIngrRootFrom(int ingrRootFrom) {
-    this.ingrRootFrom = ingrRootFrom;
+  public void setUpdateFromRoot(int updateFromRoot) {
+    this.updateFromRoot = updateFromRoot;
   }
 
-  public int getIngrMushroomFrom() {
-    return ingrMushroomFrom;
+  public int getUpdateFromMushroom() {
+    return updateFromMushroom;
   }
 
-  public void setIngrMushroomFrom(int ingrMushroomFrom) {
-    this.ingrMushroomFrom = ingrMushroomFrom;
+  public void setUpdateFromMushroom(int updateFromMushroom) {
+    this.updateFromMushroom = updateFromMushroom;
   }
 
-  public int getIngrFeatherFrom() {
-    return ingrFeatherFrom;
+  public int getUpdateFromFeather() {
+    return updateFromFeather;
   }
 
-  public void setIngrFeatherFrom(int ingrFeatherFrom) {
-    this.ingrFeatherFrom = ingrFeatherFrom;
+  public void setUpdateFromFeather(int updateFromFeather) {
+    this.updateFromFeather = updateFromFeather;
   }
 
-  public int getIngrMushroomTo() {
-    return ingrMushroomTo;
+  public int getUpdateToMushroom() {
+    return updateToMushroom;
   }
 
-  public void setIngrMushroomTo(int ingrMushroomTo) {
-    this.ingrMushroomTo = ingrMushroomTo;
+  public void setUpdateToMushroom(int updateToMushroom) {
+    this.updateToMushroom = updateToMushroom;
   }
 
-  public int getIngrFeatherTo() {
-    return ingrFeatherTo;
+  public int getUpdateToFeather() {
+    return updateToFeather;
   }
 
-  public void setIngrFeatherTo(int ingrFeatherTo) {
-    this.ingrFeatherTo = ingrFeatherTo;
+  public void setUpdateToFeather(int updateToFeather) {
+    this.updateToFeather = updateToFeather;
   }
 
-  public int getIngrChickenLegTo() {
-    return ingrChickenLegTo;
+  public int getUpdateToChickenLeg() {
+    return updateToChickenLeg;
   }
 
-  public void setIngrChickenLegTo(int ingrChickenLegTo) {
-    this.ingrChickenLegTo = ingrChickenLegTo;
+  public void setUpdateToChickenLeg(int updateToChickenLeg) {
+    this.updateToChickenLeg = updateToChickenLeg;
   }
 }

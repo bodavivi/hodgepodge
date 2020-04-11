@@ -1,55 +1,59 @@
 package com.lavien.hodgepodge.models.merchants;
 
-import javax.persistence.DiscriminatorValue;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity(name = "Halleluja")
-@DiscriminatorValue("Lavien")
+@Entity(name = "obtain")
 public class ObtainIngrMerchant extends Merchant {
-  private int ingrRootToGet;
-  private int ingrMushroomToGet;
-  private int ingrFeatherToGet;
-  private int ingrChickenLegToGet;
+
+  @Column(name = "obtain_root")
+  private int obtainRoot;
+  @Column(name = "obtain_mushroom")
+  private int obtainMushroom;
+  @Column(name = "obtain_feather")
+  private int obtainFeather;
+  @Column(name = "obtain_chicken_leg")
+  private int obtainChickenLeg;
 
   public ObtainIngrMerchant() {
   }
 
   public ObtainIngrMerchant(int ingrRootToGet, int ingrMushroomToGet, int ingrFeatherToGet, int ingrChickenLegToGet) {
-    this.ingrRootToGet = ingrRootToGet;
-    this.ingrMushroomToGet = ingrMushroomToGet;
-    this.ingrFeatherToGet = ingrFeatherToGet;
-    this.ingrChickenLegToGet = ingrChickenLegToGet;
+    this.obtainRoot = ingrRootToGet;
+    this.obtainMushroom = ingrMushroomToGet;
+    this.obtainFeather = ingrFeatherToGet;
+    this.obtainChickenLeg = ingrChickenLegToGet;
   }
 
-  public int getIngrRootToGet() {
-    return ingrRootToGet;
+  public int getObtainRoot() {
+    return obtainRoot;
   }
 
-  public void setIngrRootToGet(int ingrRootToGet) {
-    this.ingrRootToGet = ingrRootToGet;
+  public void setObtainRoot(int obtainRoot) {
+    this.obtainRoot = obtainRoot;
   }
 
-  public int getIngrMushroomToGet() {
-    return ingrMushroomToGet;
+  public int getObtainMushroom() {
+    return obtainMushroom;
   }
 
-  public void setIngrMushroomToGet(int ingrMushroomToGet) {
-    this.ingrMushroomToGet = ingrMushroomToGet;
+  public void setObtainMushroom(int obtainMushroom) {
+    this.obtainMushroom = obtainMushroom;
   }
 
-  public int getIngrFeatherToGet() {
-    return ingrFeatherToGet;
+  public int getObtainFeather() {
+    return obtainFeather;
   }
 
-  public void setIngrFeatherToGet(int ingrFeatherToGet) {
-    this.ingrFeatherToGet = ingrFeatherToGet;
+  public void setObtainFeather(int obtainFeather) {
+    this.obtainFeather = obtainFeather;
   }
 
-  public int getIngrChickenLegToGet() {
-    return ingrChickenLegToGet;
+  public int getObtainChickenLeg() {
+    return obtainChickenLeg;
   }
 
-  public void setIngrChickenLegToGet(int ingrChickenLegToGet) {
-    this.ingrChickenLegToGet = ingrChickenLegToGet;
+  public void setObtainChickenLeg(int obtainChickenLeg) {
+    this.obtainChickenLeg = obtainChickenLeg;
   }
 }
