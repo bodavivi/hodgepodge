@@ -60,28 +60,31 @@ VALUES
 ('obtain', 0, 2, 0, 0),
 ('obtain', 1, 0, 1, 0);
 
-/*INSERT INTO merchant (
-                      dtype,
-                      update_from_root,
-                      update_from_mushroom,
-                      update_from_feather,
-                      update_to_mushroom,
-                      update_to_feather,
-                      update_to_chicken_leg)
-VALUES
-('update', 2, 0, 0, 0, 0, 0),
-('update', 3, 0, 0, 0, 0, 0);
-
 INSERT INTO merchant (
                       dtype,
                       trade_root_from,
-                      trade_root_to,
                       trade_mushroom_from,
-                      trade_mushroom_to,
                       trade_feather_from,
-                      trade_feather_to,
                       trade_chicken_leg_from,
+                      trade_root_to,
+                      trade_mushroom_to,
+                      trade_feather_to,
                       trade_chicken_leg_to)
 VALUES
-('trade', 0, 1, 0, 1, 0, 1, 0, 1),
-('trade', 2, 4, 2, 4, 2, 4, 2, 4);*/
+('trade', 3, 0, 0, 0, 0, 0, 0, 1),
+('trade', 0, 1, 0, 0, 3, 0, 0, 0),
+('trade', 0, 0, 2, 0, 2, 3, 0, 0),
+('trade', 0, 0, 2, 0, 2, 1, 0, 1),
+('trade', 0, 0, 0, 1, 3, 0, 1, 0),
+('trade', 0, 2, 0, 0, 3, 0, 1, 0),
+('trade', 0, 3, 0, 0, 2, 2, 0, 0),
+('trade', 0, 0, 0, 1, 2, 2, 0, 0),
+('trade', 4, 0, 0, 0, 0, 0, 2, 0),
+('trade', 2, 0, 0, 0, 0, 0, 1, 0),
+('trade', 1, 1, 0, 0, 0, 0, 0, 1),
+('trade', 0, 0, 1, 0, 0, 2, 0, 0),
+('trade', 0, 2, 0, 0, 2, 0, 0, 1),
+('trade', 3, 0, 0, 0, 0, 1, 1, 0),
+('trade', 0, 0, 2, 0, 0, 2, 0, 1),
+('trade', 0, 3, 0, 0, 1, 0, 1, 1),
+('trade', 0, 0, 0, 1, 0, 3, 0, 0);
