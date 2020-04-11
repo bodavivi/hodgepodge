@@ -3,7 +3,7 @@ package com.lavien.hodgepodge.models.merchants;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-@Entity(name = "trade_m")
+@Entity(name = "trade")
 public class TradeIngrMerchant extends Merchant {
 
   @Column(name = "trade_root_from")
