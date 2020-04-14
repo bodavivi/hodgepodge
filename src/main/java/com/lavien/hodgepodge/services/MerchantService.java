@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface MerchantService {
   List<Merchant> findAll();
+
   List<Merchant> findStarterUnavailableMerchants();
+
   Merchant save(Merchant merchant);
 }
