@@ -1,11 +1,9 @@
-# STARTER CARDS
-INSERT INTO merchant (id, dtype, number_of_updates)
-VALUES (100, 'update', 2);
-INSERT INTO merchant (id, dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
-VALUES (200, 'obtain', 2, 0, 0, 0);
+INSERT INTO merchant (dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
+VALUES ('obtain', 2, 0, 0, 0);
 
 INSERT INTO merchant (dtype, number_of_updates)
-VALUES ('update', 3);
+VALUES ('update', 2),
+       ('update', 3);
 
 INSERT INTO merchant (dtype,
                       obtain_root,
