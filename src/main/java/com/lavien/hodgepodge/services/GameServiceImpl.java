@@ -33,9 +33,11 @@ public class GameServiceImpl implements GameService {
     setUpStarterIngredients(game.getAlchemists());
     //3. Starter mixture-ök
     setStarterMixtures(game.getUnavailableMixtures(), game.getAvailableMixtures());
-    //4. Starter Merchants
+    //4. Coin
+    setCoins(game.getAvailableMixtures(), game.getAlchemists().size());
+    //5. Starter Merchants
     setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
-    //5. Kezdokartyak
+    //6. Kezdokartyak
     setStarterHands(game.getAlchemists());
     return game;
   }
@@ -91,6 +93,12 @@ public class GameServiceImpl implements GameService {
       unavailableMixtures.remove(unavailableMixtures.get(randomIndex));
       mixtureService.save(availableMixtures.get(i));
     }
+    return availableMixtures;
+  }
+
+  private List<Mixture> setCoins(List<Mixture> availableMixtures, int numberOfPlayers) {
+    availableMixtures.get(0).setGoldCoin(2 * numberOfPlayers);
+    availableMixtures.get(1).setSilverCoin(2 * numberOfPlayers);
     return availableMixtures;
   }
 
