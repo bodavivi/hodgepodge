@@ -8,12 +8,14 @@ import java.util.List;
 import java.util.Random;
 
 import com.lavien.hodgepodge.models.Mixture;
+import com.lavien.hodgepodge.models.merchants.Merchant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GameServiceImpl implements GameService {
   private MixtureService mixtureService;
+  private MerchantService merchantService;
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService) {
@@ -29,6 +31,8 @@ public class GameServiceImpl implements GameService {
     setUpStarterIngredients(game.getAlchemists());
     //3.Starter mixture-ök
     setStarterMixtures(game.getUnavailableMixtures(), game.getAvailableMixtures());
+    //4. Starter Merchants
+    setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
     return game;
   }
 
@@ -84,6 +88,30 @@ public class GameServiceImpl implements GameService {
       mixtureService.save(availableMixtures.get(i));
     }
     return availableMixtures;
+  }
+
+  private void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
+    setUnavailableMerchants(unavailableMerchants);
+    setAvailableMerchants(unavailableMerchants, availableMerchants);
+  }
+
+  private List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
+    for (Merchant merchant : merchantService.findStarterUnavailableMerchants()) {
+      unavailableMerchant.add(merchant);
+      merchantService.save(merchant);
+    }
+    return unavailableMerchant;
+  }
+
+  private List<Merchant> setAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
+    Random random = new Random();
+    for (int i = 0; i < 6; i++) {
+      int randomIndex = random.nextInt(unavailableMerchants.size());
+      availableMerchants.add(unavailableMerchants.get(randomIndex));
+      unavailableMerchants.remove(randomIndex);
+      merchantService.save(availableMerchants.get(i));
+    }
+    return availableMerchants;
   }
 
 }
