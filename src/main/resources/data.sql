@@ -45,6 +45,13 @@ VALUES
 
 INSERT INTO merchant (
                       dtype,
+                      number_of_updates)
+VALUES
+('update', 2),
+('update', 3);
+
+INSERT INTO merchant (
+                      dtype,
                       obtain_root,
                       obtain_mushroom,
                       obtain_feather,
