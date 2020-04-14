@@ -31,7 +31,7 @@ public class MerchantServiceImpl implements MerchantService {
   public List<Merchant> findStarterUnavailableMerchants() {
     List<Merchant> merchants = new ArrayList<>();
     for (Merchant merchant : merchantRepository.findAll()) {
-      if (merchant.getId() != 100 || merchant.getId() != 200) {
+      if (merchant.getId() != 1 || merchant.getId() != 2) {
         merchants.add(merchant);
       }
     }
@@ -46,8 +46,8 @@ public class MerchantServiceImpl implements MerchantService {
   @Override
   public List<Merchant> pickUpStarterCards() {
     List<Merchant> starterCards = new ArrayList<>();
-    starterCards.add(merchantRepository.findById(100L).orElse(null));
-    starterCards.add(merchantRepository.findById(200L).orElse(null));
+    starterCards.add(merchantRepository.findById(1L).orElse(null));
+    starterCards.add(merchantRepository.findById(2L).orElse(null));
     return starterCards;
   }
 }
