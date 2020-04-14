@@ -37,7 +37,7 @@ public class GameServiceImpl implements GameService {
     setCoins(game.getAvailableMixtures(), game.getAlchemists().size());
     //5. Starter Merchants
     setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
-    //5. Kezdokartyak
+    //6. Kezdokartyak
     setStarterHands(game.getAlchemists());
     return game;
   }
