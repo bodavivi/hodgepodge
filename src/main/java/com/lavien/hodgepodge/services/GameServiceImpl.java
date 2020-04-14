@@ -14,12 +14,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GameServiceImpl implements GameService {
+
   private MixtureService mixtureService;
   private MerchantService merchantService;
 
   @Autowired
-  public GameServiceImpl(MixtureService mixtureService) {
+  public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService) {
     this.mixtureService = mixtureService;
+    this.merchantService = merchantService;
   }
 
   @Override
@@ -29,10 +31,12 @@ public class GameServiceImpl implements GameService {
     game.setAlchemists(randomizeAlchemist(alchemists));
     //2. Alchemistek sorrendje alapján kezdő ingredientek
     setUpStarterIngredients(game.getAlchemists());
-    //3.Starter mixture-ök
+    //3. Starter mixture-ök
     setStarterMixtures(game.getUnavailableMixtures(), game.getAvailableMixtures());
     //4. Starter Merchants
     setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
+    //5. Kezdokartyak
+    setStarterHands(game.getAlchemists());
     return game;
   }
 
@@ -48,8 +52,7 @@ public class GameServiceImpl implements GameService {
     return alchemistsRandomOrder;
   }
 
-  private void setUpStarterIngredients(List<Alchemist> alchemists) {
-
+  private List<Alchemist> setUpStarterIngredients(List<Alchemist> alchemists) {
     alchemists.get(0).setIngrRoot(3);
     alchemists.get(1).setIngrRoot(4);
 
@@ -64,6 +67,7 @@ public class GameServiceImpl implements GameService {
         }
       }
     }
+    return alchemists;
   }
 
   private void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
@@ -114,4 +118,21 @@ public class GameServiceImpl implements GameService {
     return availableMerchants;
   }
 
+  private List<Alchemist> setStarterHands(List<Alchemist> alchemists) {
+    List<Merchant> starterCards = merchantService.pickUpStarterCards();
+
+    alchemists.get(0).setMerchantsInHand(starterCards);
+    alchemists.get(1).setMerchantsInHand(starterCards);
+
+    if (alchemists.size() >= 3) {
+      alchemists.get(2).setMerchantsInHand(starterCards);
+      if (alchemists.size() >= 4) {
+        alchemists.get(3).setMerchantsInHand(starterCards);
+        if (alchemists.size() == 5) {
+          alchemists.get(4).setMerchantsInHand(starterCards);
+        }
+      }
+    }
+    return alchemists;
+  }
 }

@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 public class MerchantServiceImpl implements MerchantService {
+
   private MerchantRepository merchantRepository;
 
   @Autowired
@@ -38,8 +39,15 @@ public class MerchantServiceImpl implements MerchantService {
   }
 
   @Override
-  public Merchant save(Merchant merchant){
+  public Merchant save(Merchant merchant) {
     return merchantRepository.save(merchant);
   }
 
+  @Override
+  public List<Merchant> pickUpStarterCards() {
+    List<Merchant> starterCards = new ArrayList<>();
+    starterCards.add(merchantRepository.findById(100L).orElse(null));
+    starterCards.add(merchantRepository.findById(200L).orElse(null));
+    return starterCards;
+  }
 }
