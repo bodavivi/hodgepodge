@@ -3,7 +3,11 @@ package com.lavien.hodgepodge.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Mixture {
 
@@ -60,91 +64,4 @@ public class Mixture {
     this.silverCoin = 0;
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public List<Game> getGamesWhereUnavailable() {
-    return gamesWhereUnavailable;
-  }
-
-  public void setGamesWhereUnavailable(List<Game> gamesWhereUnavailable) {
-    this.gamesWhereUnavailable = gamesWhereUnavailable;
-  }
-
-  public List<Game> getGamesWhereAvailable() {
-    return gamesWhereAvailable;
-  }
-
-  public void setGamesWhereAvailable(List<Game> gamesWhereAvailable) {
-    this.gamesWhereAvailable = gamesWhereAvailable;
-  }
-
-  public int getIngrRoot() {
-    return ingrRoot;
-  }
-
-  public void setIngrRoot(int ingrRoot) {
-    this.ingrRoot = ingrRoot;
-  }
-
-  public int getIngrMushroom() {
-    return ingrMushroom;
-  }
-
-  public void setIngrMushroom(int ingrMushroom) {
-    this.ingrMushroom = ingrMushroom;
-  }
-
-  public int getIngrFeather() {
-    return ingrFeather;
-  }
-
-  public void setIngrFeather(int ingrFeather) {
-    this.ingrFeather = ingrFeather;
-  }
-
-  public int getIngrChickenLeg() {
-    return ingrChickenLeg;
-  }
-
-  public void setIngrChickenLeg(int ingrChickenLeg) {
-    this.ingrChickenLeg = ingrChickenLeg;
-  }
-
-  public List<Alchemist> getAlchemists() {
-    return alchemists;
-  }
-
-  public void setAlchemists(List<Alchemist> alchemists) {
-    this.alchemists = alchemists;
-  }
-
-  public int getPoint() {
-    return point;
-  }
-
-  public void setPoint(int point) {
-    this.point = point;
-  }
-
-  public int getGoldCoin() {
-    return goldCoin;
-  }
-
-  public void setGoldCoin(int goldCoin) {
-    this.goldCoin = goldCoin;
-  }
-
-  public int getSilverCoin() {
-    return silverCoin;
-  }
-
-  public void setSilverCoin(int silverCoin) {
-    this.silverCoin = silverCoin;
-  }
 }
