@@ -9,7 +9,8 @@ import java.util.List;
 
 @Service
 public class MixtureServiceImpl implements MixtureService {
-  private MixtureRepository mixtureRepository;
+
+  private final MixtureRepository mixtureRepository;
 
   @Autowired
   public MixtureServiceImpl(MixtureRepository mixtureRepository) {
