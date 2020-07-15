@@ -6,10 +6,14 @@ import com.lavien.hodgepodge.models.Game;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity(name = "merchant")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-// Source: https://stackoverflow.com/questions/53115122/handling-entities-inheritance-spring-boot
+// Source: https://bit.ly/38WoJyi
 public abstract class Merchant {
 
   @Id
@@ -41,43 +45,4 @@ public abstract class Merchant {
     this.alchemistsInHand = new ArrayList<>();
   }
 
-  public Long getId() {
-    return id;
-  }
-
-  public void setId(Long id) {
-    this.id = id;
-  }
-
-  public List<Game> getGamesWhereAvailable() {
-    return gamesWhereAvailable;
-  }
-
-  public void setGamesWhereAvailable(List<Game> gamesWhereAvailable) {
-    this.gamesWhereAvailable = gamesWhereAvailable;
-  }
-
-  public List<Game> getGamesWhereUnavailable() {
-    return gamesWhereUnavailable;
-  }
-
-  public void setGamesWhereUnavailable(List<Game> gamesWhereUnavailable) {
-    this.gamesWhereUnavailable = gamesWhereUnavailable;
-  }
-
-  public List<Alchemist> getAlchemistsWhoPlayed() {
-    return alchemistsWhoPlayed;
-  }
-
-  public void setAlchemistsWhoPlayed(List<Alchemist> alchemistsWhoPlayed) {
-    this.alchemistsWhoPlayed = alchemistsWhoPlayed;
-  }
-
-  public List<Alchemist> getAlchemistsInHand() {
-    return alchemistsInHand;
-  }
-
-  public void setAlchemistsInHand(List<Alchemist> alchemistsInHand) {
-    this.alchemistsInHand = alchemistsInHand;
-  }
 }
