@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public class MerchantServiceImpl implements MerchantService {
 
-  private MerchantRepository merchantRepository;
+  private final MerchantRepository merchantRepository;
 
   @Autowired
   public MerchantServiceImpl(MerchantRepository merchantRepository) {

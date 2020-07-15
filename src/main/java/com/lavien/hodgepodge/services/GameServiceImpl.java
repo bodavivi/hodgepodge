@@ -15,8 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameServiceImpl implements GameService {
 
-  private MixtureService mixtureService;
-  private MerchantService merchantService;
+  private final MixtureService mixtureService;
+  private final MerchantService merchantService;
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService) {
