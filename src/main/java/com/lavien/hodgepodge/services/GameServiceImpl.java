@@ -3,6 +3,7 @@ package com.lavien.hodgepodge.services;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 
+import com.lavien.hodgepodge.repositories.GameRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,11 +18,13 @@ public class GameServiceImpl implements GameService {
 
   private final MixtureService mixtureService;
   private final MerchantService merchantService;
+  private final GameRepository gameRepository;
 
   @Autowired
-  public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService) {
+  public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService, GameRepository gameRepository) {
     this.mixtureService = mixtureService;
     this.merchantService = merchantService;
+    this.gameRepository = gameRepository;
   }
 
   @Override
@@ -143,4 +146,15 @@ public class GameServiceImpl implements GameService {
     }
     return alchemists;
   }
+
+  @Override
+  public List<Game> getAll() {
+    return this.gameRepository.findAll();
+  }
+
+  @Override
+  public Game getGameByGameCode(String gameCode) {
+    return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(null);
+  }
+
 }
