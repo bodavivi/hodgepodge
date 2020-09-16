@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.services;
 
+import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 
@@ -154,7 +155,7 @@ public class GameServiceImpl implements GameService {
 
   @Override
   public Game getGameByGameCode(String gameCode) {
-    return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(null);
+    return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(GameNotFoundException::new);
   }
 
 }
