@@ -19,7 +19,7 @@ public class MixtureServiceImpl implements MixtureService {
 
   @Override
   public List<Mixture> findAll() {
-    return (List<Mixture>) mixtureRepository.findAll();
+    return mixtureRepository.findAll();
   }
 
   @Override
