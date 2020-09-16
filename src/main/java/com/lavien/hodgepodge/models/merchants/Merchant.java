@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity(name = "merchant")
+@Table(name = "merchants")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // Source: https://bit.ly/38WoJyi
 public abstract class Merchant {

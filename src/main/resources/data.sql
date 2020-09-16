@@ -1,11 +1,11 @@
-INSERT INTO merchant (dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
+INSERT INTO merchants (dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
 VALUES ('obtain', 2, 0, 0, 0);
 
-INSERT INTO merchant (dtype, number_of_updates)
+INSERT INTO merchants (dtype, number_of_updates)
 VALUES ('update', 2),
        ('update', 3);
 
-INSERT INTO merchant (dtype,
+INSERT INTO merchants (dtype,
                       obtain_root,
                       obtain_mushroom,
                       obtain_feather,
@@ -19,7 +19,7 @@ VALUES ('obtain', 1, 1, 0, 0),
        ('obtain', 0, 2, 0, 0),
        ('obtain', 1, 0, 1, 0);
 
-INSERT INTO merchant (dtype,
+INSERT INTO merchants (dtype,
                       trade_root_from,
                       trade_mushroom_from,
                       trade_feather_from,
@@ -63,7 +63,7 @@ VALUES ('trade', 3, 0, 0, 0, 0, 0, 0, 1),
        ('trade', 0, 2, 0, 0, 0, 0, 2, 0),
        ('trade', 0, 0, 0, 1, 0, 0, 2, 0);
 
-INSERT INTO mixture (name,
+INSERT INTO mixtures (name,
                      ingr_root,
                      ingr_mushroom,
                      ingr_feather,
