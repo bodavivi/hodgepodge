@@ -8,4 +8,8 @@ public interface GameService {
 
   Game setUp(List<Alchemist> alchemists);
 
+  List<Game> getAll();
+
+  Game getGameByGameCode(String gameCode);
+
 }

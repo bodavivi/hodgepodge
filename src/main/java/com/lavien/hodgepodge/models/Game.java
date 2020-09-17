@@ -5,18 +5,21 @@ import com.lavien.hodgepodge.models.merchants.Merchant;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "games")
 public class Game {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @NotBlank
   private String gameCode;
 
   @ManyToMany(mappedBy = "gamesWhereUnavailable")

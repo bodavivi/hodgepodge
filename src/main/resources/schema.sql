@@ -5,12 +5,12 @@ DROP TABLE if exists unavailable_mixture_game;
 DROP TABLE if exists mixture_alchemist;
 DROP TABLE if exists hand_merchant_alchemist;
 DROP TABLE if exists played_merchant_alchemist;
-DROP TABLE if exists alchemist;
-DROP TABLE if exists game;
-DROP TABLE if exists merchant;
-DROP TABLE if exists mixture;
+DROP TABLE if exists alchemists;
+DROP TABLE if exists games;
+DROP TABLE if exists merchants;
+DROP TABLE if exists mixtures;
 
-CREATE TABLE alchemist (
+CREATE TABLE alchemists (
     id               bigint auto_increment primary key,
     gold_coins       int    not null,
     ingr_chicken_leg int    not null,
@@ -21,12 +21,12 @@ CREATE TABLE alchemist (
     game_id          bigint null
 );
 
-CREATE TABLE game (
+CREATE TABLE games (
     id        bigint auto_increment primary key,
     game_code varchar(255) null
 );
 
-CREATE TABLE merchant (
+CREATE TABLE merchants (
     id                      bigint auto_increment primary key,
     dtype                   VARCHAR(80),
     obtain_root             int,
@@ -44,7 +44,7 @@ CREATE TABLE merchant (
     number_of_updates       int
 );
 
-CREATE TABLE mixture (
+CREATE TABLE mixtures (
     id               bigint auto_increment primary key,
     name             varchar(255) null,
     gold_coin        int,
@@ -59,55 +59,55 @@ CREATE TABLE mixture (
 CREATE TABLE available_merchant_game (
     merchant_id bigint not null,
     game_id     bigint not null,
-    foreign key (merchant_id) references merchant(id),
-    foreign key (game_id) references game(id),
+    foreign key (merchant_id) references merchants(id),
+    foreign key (game_id) references games(id),
     unique (merchant_id, game_id)
 );
 
 CREATE TABLE available_mixture_game (
     mixture_id bigint not null,
     game_id     bigint not null,
-    foreign key (mixture_id) references mixture(id),
-    foreign key (game_id) references game(id),
+    foreign key (mixture_id) references mixtures(id),
+    foreign key (game_id) references games(id),
     unique (mixture_id, game_id)
 );
 
 CREATE TABLE unavailable_merchant_game (
     merchant_id bigint not null,
     game_id     bigint not null,
-    foreign key (merchant_id) references merchant(id),
-    foreign key (game_id) references game(id),
+    foreign key (merchant_id) references merchants(id),
+    foreign key (game_id) references games(id),
     unique (merchant_id, game_id)
 );
 
 CREATE TABLE unavailable_mixture_game (
     mixture_id bigint not null,
     game_id     bigint not null,
-    foreign key (mixture_id) references mixture(id),
-    foreign key (game_id) references game(id),
+    foreign key (mixture_id) references mixtures(id),
+    foreign key (game_id) references games(id),
     unique (mixture_id, game_id)
 );
 
 CREATE TABLE mixture_alchemist (
     mixture_id   bigint not null,
     alchemist_id bigint not null,
-    foreign key (mixture_id) references mixture(id),
-    foreign key (alchemist_id) references alchemist(id),
+    foreign key (mixture_id) references mixtures(id),
+    foreign key (alchemist_id) references alchemists(id),
     unique (mixture_id, alchemist_id)
 );
 
 CREATE TABLE played_merchant_alchemist (
     alchemist_id bigint not null,
     merchant_id  bigint not null,
-    foreign key (merchant_id) references merchant(id),
-    foreign key (alchemist_id) references alchemist(id),
+    foreign key (merchant_id) references merchants(id),
+    foreign key (alchemist_id) references alchemists(id),
     unique (merchant_id, alchemist_id)
 );
 
 CREATE TABLE hand_merchant_alchemist (
     alchemist_id bigint not null,
     merchant_id  bigint not null,
-    foreign key (merchant_id) references merchant(id),
-    foreign key (alchemist_id) references alchemist(id),
+    foreign key (merchant_id) references merchants(id),
+    foreign key (alchemist_id) references alchemists(id),
     unique (merchant_id, alchemist_id)
 );
