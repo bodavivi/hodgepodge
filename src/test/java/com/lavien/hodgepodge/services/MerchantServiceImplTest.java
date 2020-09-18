@@ -11,7 +11,6 @@ import com.lavien.hodgepodge.models.merchants.UpdateIngrMerchant;
 import com.lavien.hodgepodge.repositories.MerchantRepository;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -62,18 +61,5 @@ public class MerchantServiceImplTest {
     assertEquals(testMerchants, merchantService.findStarterUnavailableMerchants());
     verify(merchantRepository).findAll();
   }
-
-  // TODO 10 basic kártyával működik
-  /*@Test
-  public void pickUpStarterCards_ReturnsBasicMerchants_ThereAreTwoMerchantCards() {
-    this.testMerchants.get(0).setId(1L);
-    this.testMerchants.get(1).setId(2L);
-
-    when(merchantRepository.findById(1L)).thenReturn(Optional.of(testMerchants.get(0)));
-    when(merchantRepository.findById(2L)).thenReturn(Optional.of(testMerchants.get(1)));
-    assertEquals(testMerchants, merchantService.pickUpStarterCards());
-    verify(merchantRepository).findById(1L);
-    verify(merchantRepository).findById(2L);
-  }*/
 
 }
