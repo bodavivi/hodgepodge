@@ -25,12 +25,15 @@ public class MerchantServiceImpl implements MerchantService {
       allMerchant.add(merchant);
     }
     return allMerchant;
+    // or: return new ArrayList<>(merchantRepository.findAll());
   }
 
   @Override
   public List<Merchant> findStarterUnavailableMerchants() {
     List<Merchant> merchants = new ArrayList<>();
     for (Merchant merchant : merchantRepository.findAll()) {
+      // TODO should define two basic card per player (max. 10, 8 is missing)
+      // TODO nem ID alapján kellene szűrni, hanem obtain_root = 2 és number_of_updates = 2
       if (merchant.getId() != 1 || merchant.getId() != 2) {
         merchants.add(merchant);
       }
@@ -46,6 +49,7 @@ public class MerchantServiceImpl implements MerchantService {
   @Override
   public List<Merchant> pickUpStarterCards() {
     List<Merchant> starterCards = new ArrayList<>();
+    // TODO nem ID alapján kellene belerakni őket
     starterCards.add(merchantRepository.findById(1L).orElse(null));
     starterCards.add(merchantRepository.findById(2L).orElse(null));
     return starterCards;
