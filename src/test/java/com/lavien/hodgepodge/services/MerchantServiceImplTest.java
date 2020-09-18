@@ -10,6 +10,7 @@ import com.lavien.hodgepodge.models.merchants.ObtainIngrMerchant;
 import com.lavien.hodgepodge.models.merchants.UpdateIngrMerchant;
 import com.lavien.hodgepodge.repositories.MerchantRepository;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,9 +25,9 @@ public class MerchantServiceImplTest {
   public void setUp() {
     this.merchantRepository = mock(MerchantRepository.class);
     this.merchantService = new MerchantServiceImpl(merchantRepository);
-    this.testMerchants = List.of(
+    this.testMerchants = new ArrayList<>(Arrays.asList(
         new ObtainIngrMerchant(2, 0, 0, 0),
-        new UpdateIngrMerchant(2));
+        new UpdateIngrMerchant(2)));
   }
 
   @Test
