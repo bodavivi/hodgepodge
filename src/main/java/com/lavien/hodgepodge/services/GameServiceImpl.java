@@ -158,4 +158,21 @@ public class GameServiceImpl implements GameService {
     return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(GameNotFoundException::new);
   }
 
+  @Override
+  public void create(Game newGame) {
+    this.gameRepository.save(newGame);
+  }
+
+  @Override
+  public void deleteGameById(Long id) {
+    this.gameRepository.findById(id);
+    this.gameRepository.deleteById(id);
+  }
+
+  @Override
+  public void update(Long id, Game game) {
+    Game updatedGame = this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    // TODO Mapper class bevezetése, mert ez így nem megy :D
+    this.gameRepository.save(updatedGame);
+  }
 }

@@ -116,4 +116,5 @@ VALUES ('', 2, 2, 0, 0, 6, 0, 0),
        ('', 1, 1, 3, 1, 18, 0, 0),
        ('', 1, 1, 1, 3, 20, 0, 0);
 
-INSERT INTO games (id, game_code) VALUES (77, 'oktatas');
+INSERT INTO games (id, game_code) VALUES (1, 'oktatas');
+INSERT INTO games (id, game_code) VALUES (2, 'bemelegites');

@@ -12,4 +12,9 @@ public interface GameService {
 
   Game getGameByGameCode(String gameCode);
 
+  void create(Game newGame);
+
+  void deleteGameById(Long id);
+
+  void update(Long id, Game game);
 }
