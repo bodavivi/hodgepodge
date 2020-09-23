@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.services;
 
+import com.lavien.hodgepodge.exceptions.GameAlreadyExistException;
 import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.game.Game;
@@ -171,6 +172,9 @@ public class GameServiceImpl implements GameService {
   public void create(GameRequestDTO requestDTO) {
     if (!this.gameRepository.getGameByGameCode(requestDTO.getGameCode()).isPresent()) {
       this.gameRepository.save(this.mapper.map(requestDTO, Game.class));
+      System.out.println("Game with the given gamecode (" + requestDTO.getGameCode() + ") has successfully created.");
+    } else {
+      throw new GameAlreadyExistException();
     }
   }
 

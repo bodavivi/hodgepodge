@@ -3,7 +3,6 @@ package com.lavien.hodgepodge.controllers;
 import com.lavien.hodgepodge.models.game.dto.GameRequestDTO;
 import com.lavien.hodgepodge.models.game.dto.GameResponseDTO;
 import java.util.List;
-import com.lavien.hodgepodge.models.game.Game;
 import com.lavien.hodgepodge.services.GameService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
