@@ -6,12 +6,12 @@ VALUES ('obtain', 2, 0, 0, 0),
        ('obtain', 2, 0, 0, 0);
 
 INSERT INTO merchants (dtype, number_of_updates)
-VALUES ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 3);
+VALUES ('update_m', 2),
+       ('update_m', 2),
+       ('update_m', 2),
+       ('update_m', 2),
+       ('update_m', 2),
+       ('update_m', 3);
 
 INSERT INTO merchants (dtype,
                       obtain_root,
