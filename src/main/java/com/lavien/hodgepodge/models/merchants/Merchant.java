@@ -1,7 +1,7 @@
 package com.lavien.hodgepodge.models.merchants;
 
 import com.lavien.hodgepodge.models.Alchemist;
-import com.lavien.hodgepodge.models.Game;
+import com.lavien.hodgepodge.models.game.Game;
 
 import javax.persistence.*;
 import java.util.ArrayList;

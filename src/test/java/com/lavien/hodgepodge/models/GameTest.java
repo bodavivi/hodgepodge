@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models;
 
+import com.lavien.hodgepodge.models.game.Game;
 import org.junit.Before;
 import org.junit.Test;
 

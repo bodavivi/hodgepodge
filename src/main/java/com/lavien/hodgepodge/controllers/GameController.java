@@ -1,7 +1,9 @@
 package com.lavien.hodgepodge.controllers;
 
+import com.lavien.hodgepodge.models.game.dto.GameRequestDTO;
+import com.lavien.hodgepodge.models.game.dto.GameResponseDTO;
 import java.util.List;
-import com.lavien.hodgepodge.models.Game;
+import com.lavien.hodgepodge.models.game.Game;
 import com.lavien.hodgepodge.services.GameService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,31 +30,31 @@ public class GameController {
   }
 
   @GetMapping(value = "/games")
-  public ResponseEntity<List<Game>> getGames() {
+  public ResponseEntity<List<GameResponseDTO>> getGames() {
     return ResponseEntity.ok(this.gameService.getAll());
   }
 
   @GetMapping(value = "/games/{gameCode}")
-  public ResponseEntity<Game> getGameByGameCode(@PathVariable String gameCode) {
+  public ResponseEntity<GameResponseDTO> getGameByGameCode(@PathVariable String gameCode) {
     return ResponseEntity.ok(this.gameService.getGameByGameCode(gameCode));
   }
 
   @PostMapping(value = "/games")
-  public ResponseEntity<Game> createGame(@RequestBody @Valid Game game) {
-    this.gameService.create(game);
-    return getGameByGameCode(game.getGameCode());
+  public ResponseEntity<HttpStatus> createGame(@RequestBody @Valid GameRequestDTO requestDTO) {
+    this.gameService.create(requestDTO);
+    return ResponseEntity.noContent().build();
   }
 
   @DeleteMapping(value = "/games/{id}")
-  public ResponseEntity<?> deleteGameById(@PathVariable Long id) {
-    this.gameService.deleteGameById(id);
-    return ResponseEntity.ok().build();
+  public ResponseEntity<HttpStatus> deleteGameById(@PathVariable Long id) {
+    this.gameService.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 
   @PutMapping(value = "/games/{id}")
-  public ResponseEntity<HttpStatus> updateGame(@PathVariable Long id, @RequestBody Game game) {
-    this.gameService.update(id, game);
-    return ResponseEntity.ok().build();
+  public ResponseEntity<HttpStatus> updateGame(@PathVariable Long id, @RequestBody GameRequestDTO requestDTO) {
+    this.gameService.update(id, requestDTO);
+    return ResponseEntity.noContent().build();
   }
 
 }

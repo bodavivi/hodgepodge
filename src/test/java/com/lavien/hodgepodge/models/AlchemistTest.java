@@ -2,6 +2,7 @@ package com.lavien.hodgepodge.models;
 
 import static org.junit.Assert.*;
 
+import com.lavien.hodgepodge.models.game.Game;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 import com.lavien.hodgepodge.models.merchants.UpdateIngrMerchant;
 import java.util.ArrayList;

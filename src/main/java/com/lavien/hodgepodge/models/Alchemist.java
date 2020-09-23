@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models;
 
+import com.lavien.hodgepodge.models.game.Game;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import java.util.ArrayList;

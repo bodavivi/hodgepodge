@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models;
 
+import com.lavien.hodgepodge.models.game.Game;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

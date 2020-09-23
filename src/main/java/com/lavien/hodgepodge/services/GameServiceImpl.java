@@ -2,8 +2,10 @@ package com.lavien.hodgepodge.services;
 
 import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Alchemist;
-import com.lavien.hodgepodge.models.Game;
+import com.lavien.hodgepodge.models.game.Game;
 
+import com.lavien.hodgepodge.models.game.dto.GameRequestDTO;
+import com.lavien.hodgepodge.models.game.dto.GameResponseDTO;
 import com.lavien.hodgepodge.repositories.GameRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,8 @@ import java.util.Random;
 
 import com.lavien.hodgepodge.models.Mixture;
 import com.lavien.hodgepodge.models.merchants.Merchant;
+import java.util.stream.Collectors;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,7 @@ public class GameServiceImpl implements GameService {
   private final MixtureService mixtureService;
   private final MerchantService merchantService;
   private final GameRepository gameRepository;
+  private final ModelMapper mapper = new ModelMapper();
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService, GameRepository gameRepository) {
@@ -149,30 +154,36 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public List<Game> getAll() {
-    return this.gameRepository.findAll();
+  public List<GameResponseDTO> getAll() {
+    return this.gameRepository.findAll()
+        .stream()
+        .map(game -> this.mapper.map(game, GameResponseDTO.class))
+        .collect(Collectors.toList());
   }
 
   @Override
-  public Game getGameByGameCode(String gameCode) {
-    return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(GameNotFoundException::new);
+  public GameResponseDTO getGameByGameCode(String gameCode) {
+    Game game = this.gameRepository.getGameByGameCode(gameCode).orElseThrow(GameNotFoundException::new);
+    return this.mapper.map(game, GameResponseDTO.class);
   }
 
   @Override
-  public void create(Game newGame) {
-    this.gameRepository.save(newGame);
+  public void create(GameRequestDTO requestDTO) {
+    if (!this.gameRepository.getGameByGameCode(requestDTO.getGameCode()).isPresent()) {
+      this.gameRepository.save(this.mapper.map(requestDTO, Game.class));
+    }
   }
 
   @Override
-  public void deleteGameById(Long id) {
-    this.gameRepository.findById(id);
+  public void deleteById(Long id) {
+    this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
     this.gameRepository.deleteById(id);
   }
 
   @Override
-  public void update(Long id, Game game) {
-    Game updatedGame = this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
-    // TODO Mapper class bevezetése, mert ez így nem megy :D
-    this.gameRepository.save(updatedGame);
+  public void update(Long id, GameRequestDTO requestDTO) {
+    Game game = this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    this.mapper.map(requestDTO, game);
+    this.gameRepository.save(game);
   }
 }
