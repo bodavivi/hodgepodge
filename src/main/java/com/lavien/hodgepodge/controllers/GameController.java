@@ -1,5 +1,8 @@
 package com.lavien.hodgepodge.controllers;
 
+import com.lavien.hodgepodge.models.Alchemist;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.services.GameService;
@@ -29,6 +32,12 @@ public class GameController {
   @GetMapping(value = "/games/{gameCode}")
   public ResponseEntity<Game> getGameByGameCode(@PathVariable String gameCode) {
     return ResponseEntity.ok(this.gameService.getGameByGameCode(gameCode));
+  }
+
+  @GetMapping(value = "/games/setup/{gameCode}")
+  public ResponseEntity<Game> setupGame(@PathVariable String gameCode) {
+    List<Alchemist> players = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
+    return ResponseEntity.ok(this.gameService.setUp(players, gameCode));
   }
 
 }
