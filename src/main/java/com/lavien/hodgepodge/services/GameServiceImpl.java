@@ -29,8 +29,8 @@ public class GameServiceImpl implements GameService {
   }
 
   @Override
-  public Game setUp(List<Alchemist> alchemists) {
-    Game game = new Game();
+  public Game setUp(List<Alchemist> alchemists, String gameCode) {
+    Game game = getGameByGameCode(gameCode);
     //1. Alchemistek sorrendje random beállítva
     game.setAlchemists(randomizeAlchemist(alchemists));
     //2. Alchemistek sorrendje alapján kezdő ingredientek
@@ -43,6 +43,7 @@ public class GameServiceImpl implements GameService {
     setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
     //6. Kezdokartyak
     setStarterHands(game.getAlchemists());
+    gameRepository.save(game);
     return game;
   }
 
@@ -84,7 +85,6 @@ public class GameServiceImpl implements GameService {
   private List<Mixture> setStarterUnavailablefMixtures(List<Mixture> unavailableMixtures) {
     for (Mixture mixture : mixtureService.findAll()) {
       unavailableMixtures.add(mixture);
-      mixtureService.save(mixture);
     }
     return unavailableMixtures;
   }
@@ -114,7 +114,6 @@ public class GameServiceImpl implements GameService {
   private List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
     for (Merchant merchant : merchantService.findStarterUnavailableMerchants()) {
       unavailableMerchant.add(merchant);
-      merchantService.save(merchant);
     }
     return unavailableMerchant;
   }
