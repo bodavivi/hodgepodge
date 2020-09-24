@@ -11,14 +11,14 @@ import org.junit.Test;
 
 public class AlchemistTest {
 
-  private Alchemist testAlchemist;
+  private Alchemist testAlchemist = new Alchemist();
   private Game testGame = new Game("TestCode");
   private Mixture testMixture = new Mixture(77, 1, 1, 1, 1);
   private Merchant testMerchant = new UpdateIngrMerchant(2);
 
   @Before
   public void setUp() throws Exception {
-    testAlchemist = new Alchemist(testGame);
+    testGame.addAlchemist(testAlchemist);
     testAlchemist.setMixtures(new ArrayList<>(Arrays.asList(testMixture)));
     testAlchemist.setMerchantsInHand(new ArrayList<>(Arrays.asList(testMerchant)));
   }

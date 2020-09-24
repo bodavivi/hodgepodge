@@ -28,7 +28,7 @@ public class Game {
   @ManyToMany(mappedBy = "gamesWhereAvailable")
   private List<Merchant> availableMerchants;
 
-  @OneToMany(mappedBy = "game")
+  @OneToMany(mappedBy = "game", fetch = FetchType.LAZY)
   private List<Alchemist> alchemists;
 
   @ManyToMany(mappedBy = "gamesWhereUnavailable")
@@ -52,6 +52,16 @@ public class Game {
     this.alchemists = new ArrayList<>();
     this.availableMixtures = new ArrayList<>();
     this.unavailableMixtures = new ArrayList<>();
+  }
+
+  public void addAlchemist(Alchemist alchemist) {
+    alchemists.add(alchemist);
+    alchemist.setGame(this);
+  }
+
+  public void removeAlchemist(Alchemist alchemist) {
+    alchemists.remove(alchemist);
+    alchemist.setGame(null);
   }
 
 }

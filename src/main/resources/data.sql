@@ -1,17 +1,9 @@
 INSERT INTO merchants (dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
-VALUES ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0);
+VALUES ('obtain', 2, 0, 0, 0);
 
 INSERT INTO merchants (dtype, number_of_updates)
-VALUES ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 2),
-       ('update', 3);
+VALUES ('update_m', 2),
+       ('update_m', 3);
 
 INSERT INTO merchants (dtype,
                       obtain_root,
@@ -116,4 +108,5 @@ VALUES ('', 2, 2, 0, 0, 6, 0, 0),
        ('', 1, 1, 3, 1, 18, 0, 0),
        ('', 1, 1, 1, 3, 20, 0, 0);
 
-INSERT INTO games (id, game_code) VALUES (77, 'oktatas');
+INSERT INTO games (id, game_code) VALUES (1, 'oktatas');
+INSERT INTO games (id, game_code) VALUES (2, 'bemelegites');

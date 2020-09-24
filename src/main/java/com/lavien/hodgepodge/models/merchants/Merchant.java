@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models.merchants;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 
@@ -21,21 +22,25 @@ public abstract class Merchant {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "available_merchant_game",
       joinColumns = @JoinColumn(name = "merchant_id"),
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereAvailable;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "unavailable_merchant_game",
       joinColumns = @JoinColumn(name = "merchant_id"),
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereUnavailable;
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "playedMerchants")
   private List<Alchemist> alchemistsWhoPlayed;
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "merchantsInHand")
   private List<Alchemist> alchemistsInHand;
 

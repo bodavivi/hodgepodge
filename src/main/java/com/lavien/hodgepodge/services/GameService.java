@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface GameService {
 
-  Game setUp(List<Alchemist> alchemists);
+  Game setUp(List<Alchemist> alchemists, String gameCode);
 
   List<Game> getAll();
 

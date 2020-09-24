@@ -1,17 +1,16 @@
 package com.lavien.hodgepodge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.lavien.hodgepodge.models.merchants.Merchant;
 
 import java.util.ArrayList;
 import javax.persistence.*;
 import java.util.List;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "alchemists")
 public class Alchemist {
@@ -20,6 +19,7 @@ public class Alchemist {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @JsonIgnore
   @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
   private Game game;
 
@@ -46,8 +46,8 @@ public class Alchemist {
   private int goldCoins;
   private int silverCoins;
 
-  public Alchemist(Game game) {
-    this.game = game;
+  public Alchemist() {
+    this.game = null;
     this.mixtures = new ArrayList<>();
     this.playedMerchants = new ArrayList<>();
     this.merchantsInHand = new ArrayList<>();

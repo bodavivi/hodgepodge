@@ -2,9 +2,6 @@ package com.lavien.hodgepodge.services;
 
 import com.lavien.hodgepodge.models.merchants.Merchant;
 import com.lavien.hodgepodge.repositories.MerchantRepository;
-import java.util.Arrays;
-import java.util.function.LongPredicate;
-import java.util.stream.LongStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,7 +32,7 @@ public class MerchantServiceImpl implements MerchantService {
   public List<Merchant> findStarterUnavailableMerchants() {
     List<Merchant> merchants = new ArrayList<>();
     for (Merchant merchant : merchantRepository.findAll()) {
-      if (merchant.getId() > 10) {
+      if (merchant.getId() > 2) {
         merchants.add(merchant);
       }
     }
@@ -50,10 +47,8 @@ public class MerchantServiceImpl implements MerchantService {
   @Override
   public List<Merchant> pickUpStarterCards() {
     List<Merchant> starterCards = new ArrayList<>();
-    // mindig 10 basic kártya van
-    for (long i = 1; i <= 10; i++) {
-      starterCards.add(merchantRepository.findById(i).orElse(null));
-    }
+    starterCards.add(merchantRepository.findById(1L).orElse(null));
+    starterCards.add(merchantRepository.findById(2L).orElse(null));
     return starterCards;
   }
 }
