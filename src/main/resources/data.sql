@@ -1,16 +1,8 @@
 INSERT INTO merchants (dtype, obtain_root, obtain_mushroom, obtain_feather, obtain_chicken_leg)
-VALUES ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0),
-       ('obtain', 2, 0, 0, 0);
+VALUES ('obtain', 2, 0, 0, 0);
 
 INSERT INTO merchants (dtype, number_of_updates)
 VALUES ('update_m', 2),
-       ('update_m', 2),
-       ('update_m', 2),
-       ('update_m', 2),
-       ('update_m', 2),
        ('update_m', 3);
 
 INSERT INTO merchants (dtype,
