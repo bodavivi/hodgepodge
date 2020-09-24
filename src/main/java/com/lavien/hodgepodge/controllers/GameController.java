@@ -37,7 +37,8 @@ public class GameController {
   @GetMapping(value = "/games/setup/{gameCode}")
   public ResponseEntity<Game> setupGame(@PathVariable String gameCode) {
     List<Alchemist> players = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
-    return ResponseEntity.ok(this.gameService.setUp(players, gameCode));
+    this.gameService.setUp(players, gameCode);
+    return ResponseEntity.ok(this.gameService.getGameByGameCode(gameCode));
   }
 
 }

@@ -4,6 +4,7 @@ import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 
+import com.lavien.hodgepodge.repositories.AlchemistRepository;
 import com.lavien.hodgepodge.repositories.GameRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,17 +21,23 @@ public class GameServiceImpl implements GameService {
   private final MixtureService mixtureService;
   private final MerchantService merchantService;
   private final GameRepository gameRepository;
+  private final AlchemistRepository alchemistRepository;
 
   @Autowired
-  public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService, GameRepository gameRepository) {
+  public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService,
+      GameRepository gameRepository, AlchemistRepository alchemistRepository) {
     this.mixtureService = mixtureService;
     this.merchantService = merchantService;
     this.gameRepository = gameRepository;
+    this.alchemistRepository = alchemistRepository;
   }
 
   @Override
   public Game setUp(List<Alchemist> alchemists, String gameCode) {
     Game game = getGameByGameCode(gameCode);
+    alchemists.forEach(alchemistRepository::save);
+    alchemists.forEach(game::addAlchemist);
+
     //1. Alchemistek sorrendje random beállítva
     game.setAlchemists(randomizeAlchemist(alchemists));
     //2. Alchemistek sorrendje alapján kezdő ingredientek
@@ -43,6 +50,7 @@ public class GameServiceImpl implements GameService {
     setStarterMerchants(game.getUnavailableMerchants(), game.getAvailableMerchants());
     //6. Kezdokartyak
     setStarterHands(game.getAlchemists());
+    // 7. Beallitasok mentese
     gameRepository.save(game);
     return game;
   }

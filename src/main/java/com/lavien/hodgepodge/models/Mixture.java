@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,12 +17,14 @@ public class Mixture {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "unavailable_mixture_game",
       joinColumns = @JoinColumn(name = "mixture_id"),
       inverseJoinColumns = @JoinColumn(name = "game_id"))
   private List<Game> gamesWhereUnavailable;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "available_mixture_game",
       joinColumns = @JoinColumn(name = "mixture_id"),
@@ -33,6 +36,7 @@ public class Mixture {
   private int ingrFeather;
   private int ingrChickenLeg;
 
+  @JsonIgnore
   @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
   @JoinTable(name = "mixture_alchemist",
       joinColumns = @JoinColumn(name = "mixture_id"),
