@@ -2,9 +2,6 @@ package com.lavien.hodgepodge.services;
 
 import com.lavien.hodgepodge.models.merchants.Merchant;
 import com.lavien.hodgepodge.repositories.MerchantRepository;
-import java.util.Arrays;
-import java.util.function.LongPredicate;
-import java.util.stream.LongStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
