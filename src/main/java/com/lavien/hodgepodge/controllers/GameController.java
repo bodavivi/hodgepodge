@@ -9,8 +9,10 @@ import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.services.GameService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,6 +51,12 @@ public class GameController {
   public ResponseEntity<Game> createGame(@RequestBody @Valid Game newGame) throws GameIsAlreadyExistException {
     Game game = this.gameService.create(newGame);
     return ResponseEntity.ok(game);
+  }
+
+  @DeleteMapping(value = "/games/{id}")
+  public ResponseEntity<HttpStatus> deleteGameById(@PathVariable Long id) {
+    this.gameService.deleteById(id);
+    return ResponseEntity.noContent().build();
   }
 
 }

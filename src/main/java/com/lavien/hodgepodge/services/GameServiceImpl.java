@@ -174,4 +174,10 @@ public class GameServiceImpl implements GameService {
     return getGameByGameCode(newGame.getGameCode());
   }
 
+  @Override
+  public void deleteById(Long id) {
+    this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    this.gameRepository.deleteById(id);
+  }
+
 }

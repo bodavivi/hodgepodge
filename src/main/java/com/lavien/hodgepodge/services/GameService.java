@@ -14,4 +14,6 @@ public interface GameService {
   Game getGameByGameCode(String gameCode);
 
   Game create(Game newGame) throws GameIsAlreadyExistException;
+
+  void deleteById(Long id);
 }
