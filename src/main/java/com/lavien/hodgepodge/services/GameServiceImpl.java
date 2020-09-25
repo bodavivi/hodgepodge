@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.services;
 
+import com.lavien.hodgepodge.exceptions.GameIsAlreadyExistException;
 import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
@@ -163,6 +164,28 @@ public class GameServiceImpl implements GameService {
   @Override
   public Game getGameByGameCode(String gameCode) {
     return this.gameRepository.getGameByGameCode(gameCode).orElseThrow(GameNotFoundException::new);
+  }
+
+  @Override
+  public Game create(Game newGame) throws GameIsAlreadyExistException {
+    if (!this.gameRepository.getGameByGameCode(newGame.getGameCode()).isPresent()) {
+      this.gameRepository.save(newGame);
+    } else throw new GameIsAlreadyExistException();
+    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameIsAlreadyExistException::new);
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    this.gameRepository.deleteById(id);
+  }
+
+  @Override
+  public Game update(Long id, Game game) {
+    Game gameToUpdate = this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    gameToUpdate.setGameCode(game.getGameCode());
+    this.gameRepository.save(gameToUpdate);
+    return this.gameRepository.getGameByGameCode(game.getGameCode()).orElseThrow(GameNotFoundException::new);
   }
 
 }

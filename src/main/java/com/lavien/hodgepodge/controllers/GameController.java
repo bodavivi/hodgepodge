@@ -1,16 +1,23 @@
 package com.lavien.hodgepodge.controllers;
 
+import com.lavien.hodgepodge.exceptions.GameIsAlreadyExistException;
 import com.lavien.hodgepodge.models.Alchemist;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.services.GameService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:4200", "http://localhost:8080" })
@@ -37,8 +44,26 @@ public class GameController {
   @GetMapping(value = "/games/setup/{gameCode}")
   public ResponseEntity<Game> setupGame(@PathVariable String gameCode) {
     List<Alchemist> players = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
-    this.gameService.setUp(players, gameCode);
-    return ResponseEntity.ok(this.gameService.getGameByGameCode(gameCode));
+    Game game = this.gameService.setUp(players, gameCode);
+    return ResponseEntity.ok(game);
+  }
+
+  @PostMapping(value = "/games")
+  public ResponseEntity<Game> createGame(@RequestBody @Valid Game newGame) throws GameIsAlreadyExistException {
+    Game game = this.gameService.create(newGame);
+    return ResponseEntity.ok(game);
+  }
+
+  @DeleteMapping(value = "/games/{id}")
+  public ResponseEntity<HttpStatus> deleteGameById(@PathVariable Long id) {
+    this.gameService.deleteById(id);
+    return ResponseEntity.noContent().build();
+  }
+
+  @PutMapping(value = "/games/{id}")
+  public ResponseEntity<Game> updateGame(@PathVariable Long id, @RequestBody Game game) {
+    Game updatedGame = this.gameService.update(id, game);
+    return ResponseEntity.ok(updatedGame);
   }
 
 }
