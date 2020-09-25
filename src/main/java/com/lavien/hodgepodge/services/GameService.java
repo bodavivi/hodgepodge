@@ -16,4 +16,6 @@ public interface GameService {
   Game create(Game newGame) throws GameIsAlreadyExistException;
 
   void deleteById(Long id);
+
+  Game update(Long id, Game game);
 }

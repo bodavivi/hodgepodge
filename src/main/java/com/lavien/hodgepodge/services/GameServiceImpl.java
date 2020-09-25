@@ -171,13 +171,21 @@ public class GameServiceImpl implements GameService {
     if (!this.gameRepository.getGameByGameCode(newGame.getGameCode()).isPresent()) {
       this.gameRepository.save(newGame);
     } else throw new GameIsAlreadyExistException();
-    return getGameByGameCode(newGame.getGameCode());
+    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameIsAlreadyExistException::new);
   }
 
   @Override
   public void deleteById(Long id) {
     this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
     this.gameRepository.deleteById(id);
+  }
+
+  @Override
+  public Game update(Long id, Game game) {
+    Game gameToUpdate = this.gameRepository.findById(id).orElseThrow(GameNotFoundException::new);
+    gameToUpdate.setGameCode(game.getGameCode());
+    this.gameRepository.save(gameToUpdate);
+    return this.gameRepository.getGameByGameCode(game.getGameCode()).orElseThrow(GameNotFoundException::new);
   }
 
 }
