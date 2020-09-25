@@ -1,5 +1,6 @@
 package com.lavien.hodgepodge.services;
 
+import com.lavien.hodgepodge.exceptions.GameIsAlreadyExistException;
 import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 import java.util.List;
@@ -12,4 +13,5 @@ public interface GameService {
 
   Game getGameByGameCode(String gameCode);
 
+  Game create(Game newGame) throws GameIsAlreadyExistException;
 }
