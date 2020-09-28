@@ -171,7 +171,7 @@ public class GameServiceImpl implements GameService {
     if (!this.gameRepository.getGameByGameCode(newGame.getGameCode()).isPresent()) {
       this.gameRepository.save(newGame);
     } else throw new GameIsAlreadyExistException();
-    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameIsAlreadyExistException::new);
+    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameNotFoundException::new);
   }
 
   @Override

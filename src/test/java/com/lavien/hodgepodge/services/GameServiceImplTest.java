@@ -1,12 +1,14 @@
 package com.lavien.hodgepodge.services;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.lavien.hodgepodge.exceptions.GameIsAlreadyExistException;
 import com.lavien.hodgepodge.exceptions.GameNotFoundException;
 import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.repositories.AlchemistRepository;
@@ -104,6 +106,65 @@ class GameServiceImplTest {
   public void deleteById_ThrowGameNotFoundException_InvalidId() {
     when(this.gameRepository.findById(1L)).thenReturn(Optional.empty());
     assertThrows(GameNotFoundException.class, () -> this.gameService.deleteById(1L));
+  }
+
+  @Test
+  public void create_CreateNewGame_GameWithNonExistingGameCode() {
+    Game expectedGame = new Game(GAMECODE);
+    expectedGame.setId(1L);
+    Game[] resultGame = new Game[1];
+
+    when(this.gameRepository.save(any()))
+        .then(invocationOnMock -> {
+          Game game = (Game) invocationOnMock.getArguments()[0];
+          game.setId(1L);
+          resultGame[0] = game;
+          return game;
+        });
+
+    when(this.gameRepository.getGameByGameCode(GAMECODE))
+        .thenReturn(Optional.empty())
+        .thenReturn(Optional.of(expectedGame));
+
+    this.gameService.create(new Game(GAMECODE));
+
+    assertNotNull(resultGame);
+    assertEquals(expectedGame.getId(), resultGame[0].getId());
+    assertEquals(expectedGame.getGameCode(), resultGame[0].getGameCode());
+    assertEquals(expectedGame.getAlchemists(), resultGame[0].getAlchemists());
+  }
+
+  @Test
+  public void create_ThrowGameIsAlreadyExistException_GameWithExistingGameCode() {
+    Game test = new Game(GAMECODE);
+    when(this.gameRepository.getGameByGameCode(GAMECODE)).thenReturn(Optional.of(test));
+    assertThrows(GameIsAlreadyExistException.class, () -> this.gameService.create(new Game(GAMECODE)));
+  }
+
+  @Test
+  public void update_UpdateGameCodeCorrectly_GameWithExistingGameCode() {
+    Game game = new Game(GAMECODE);
+    game.setId(1L);
+    Game[] resultGame = new Game[1];
+
+    when(this.gameRepository.findById(1L)).thenReturn(Optional.of(game));
+    when(this.gameRepository.getGameByGameCode(GAMECODE)).thenReturn(Optional.of(game));
+    when(this.gameRepository.save(any()))
+        .then(invocationOnMock -> {
+          resultGame[0] = (Game) invocationOnMock.getArguments()[0];
+          return resultGame[0];
+        });
+
+    this.gameService.update(1L, game);
+
+    assertNotNull(resultGame[0]);
+    assertEquals(game.getGameCode(), resultGame[0].getGameCode());
+  }
+
+  @Test
+  public void update_ThrowGameNotFoundException_GameWithNonExistingGameCode() {
+    when(this.gameRepository.getGameByGameCode(GAMECODE)).thenReturn(Optional.empty());
+    assertThrows(GameNotFoundException.class, () -> this.gameService.update(1L, new Game(GAMECODE)));
   }
 
 }
