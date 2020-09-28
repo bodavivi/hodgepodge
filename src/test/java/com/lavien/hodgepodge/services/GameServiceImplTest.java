@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.lavien.hodgepodge.exceptions.GameIsAlreadyExistException;
 import com.lavien.hodgepodge.exceptions.GameNotFoundException;
+import com.lavien.hodgepodge.models.Alchemist;
 import com.lavien.hodgepodge.models.Game;
 import com.lavien.hodgepodge.repositories.AlchemistRepository;
 import com.lavien.hodgepodge.repositories.GameRepository;
@@ -30,19 +31,16 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 class GameServiceImplTest {
 
   private GameServiceImpl gameService;
-  private MixtureService mixtureService;
-  private MerchantService merchantService;
   private GameRepository gameRepository;
-  private AlchemistRepository alchemistRepository;
+  private List<Alchemist> alchemists;
   public static final String GAMECODE = "testCode";
 
   @BeforeEach
   public void setUp() {
-    this.mixtureService = mock(MixtureService.class);
-    this.merchantService = mock(MerchantService.class);
     this.gameRepository = mock(GameRepository.class);
-    this.alchemistRepository = mock(AlchemistRepository.class);
-    this.gameService = new GameServiceImpl(mixtureService, merchantService, gameRepository, alchemistRepository);
+    this.gameService = new GameServiceImpl(mock(MixtureService.class), mock(MerchantService.class),
+        gameRepository, mock(AlchemistRepository.class));
+    this.alchemists = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
   }
 
   @Test
@@ -106,6 +104,7 @@ class GameServiceImplTest {
   public void deleteById_ThrowGameNotFoundException_InvalidId() {
     when(this.gameRepository.findById(1L)).thenReturn(Optional.empty());
     assertThrows(GameNotFoundException.class, () -> this.gameService.deleteById(1L));
+    verify(this.gameRepository).findById(1L);
   }
 
   @Test
@@ -132,6 +131,8 @@ class GameServiceImplTest {
     assertEquals(expectedGame.getId(), resultGame[0].getId());
     assertEquals(expectedGame.getGameCode(), resultGame[0].getGameCode());
     assertEquals(expectedGame.getAlchemists(), resultGame[0].getAlchemists());
+    verify(this.gameRepository).save(any());
+    verify(this.gameRepository, times(2)).getGameByGameCode(GAMECODE);
   }
 
   @Test
@@ -139,6 +140,7 @@ class GameServiceImplTest {
     Game test = new Game(GAMECODE);
     when(this.gameRepository.getGameByGameCode(GAMECODE)).thenReturn(Optional.of(test));
     assertThrows(GameIsAlreadyExistException.class, () -> this.gameService.create(new Game(GAMECODE)));
+    verify(this.gameRepository).getGameByGameCode(GAMECODE);
   }
 
   @Test
@@ -159,12 +161,31 @@ class GameServiceImplTest {
 
     assertNotNull(resultGame[0]);
     assertEquals(game.getGameCode(), resultGame[0].getGameCode());
+    verify(this.gameRepository).save(any());
+    verify(this.gameRepository).findById(1L);
+    verify(this.gameRepository).getGameByGameCode(GAMECODE);
   }
 
   @Test
   public void update_ThrowGameNotFoundException_GameWithNonExistingGameCode() {
-    when(this.gameRepository.getGameByGameCode(GAMECODE)).thenReturn(Optional.empty());
+    when(this.gameRepository.findById(1L)).thenReturn(Optional.empty());
     assertThrows(GameNotFoundException.class, () -> this.gameService.update(1L, new Game(GAMECODE)));
+    verify(this.gameRepository).findById(1L);
+  }
+
+  @Test
+  public void randomizeAlchemist_ReturnRandomOrder_ListWith2Alchemists() {
+    List<Alchemist> result = this.gameService.randomizeAlchemist(this.alchemists);
+    assertNotNull(result);
+    assertEquals(2, result.size());
+  }
+
+  @Test
+  public void randomizeAlchemist_ReturnRandomOrder_ListWith5Alchemists() {
+    this.alchemists.addAll(new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist(), new Alchemist())));
+    List<Alchemist> result = this.gameService.randomizeAlchemist(this.alchemists);
+    assertNotNull(result);
+    assertEquals(5, result.size());
   }
 
 }

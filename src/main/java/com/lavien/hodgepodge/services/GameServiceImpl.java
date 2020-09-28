@@ -56,7 +56,7 @@ public class GameServiceImpl implements GameService {
     return game;
   }
 
-  private ArrayList<Alchemist> randomizeAlchemist(List<Alchemist> alchemists) {
+  public ArrayList<Alchemist> randomizeAlchemist(List<Alchemist> alchemists) {
     ArrayList<Alchemist> alchemistsRandomOrder = new ArrayList<>();
     Random random = new Random();
     for (int i = 0; i < alchemists.size(); i++) {
@@ -68,7 +68,7 @@ public class GameServiceImpl implements GameService {
     return alchemistsRandomOrder;
   }
 
-  private List<Alchemist> setUpStarterIngredients(List<Alchemist> alchemists) {
+  public List<Alchemist> setUpStarterIngredients(List<Alchemist> alchemists) {
     alchemists.get(0).setIngrRoot(3);
     alchemists.get(1).setIngrRoot(4);
 
@@ -86,19 +86,19 @@ public class GameServiceImpl implements GameService {
     return alchemists;
   }
 
-  private void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
+  public void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
     setStarterUnavailablefMixtures(unavailableMixtures);
     setStarterAvailableMixtures(unavailableMixtures, availableMixtures);
   }
 
-  private List<Mixture> setStarterUnavailablefMixtures(List<Mixture> unavailableMixtures) {
+  public List<Mixture> setStarterUnavailablefMixtures(List<Mixture> unavailableMixtures) {
     for (Mixture mixture : mixtureService.findAll()) {
       unavailableMixtures.add(mixture);
     }
     return unavailableMixtures;
   }
 
-  private List<Mixture> setStarterAvailableMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
+  public List<Mixture> setStarterAvailableMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
     Random random = new Random();
     for (int i = 0; i < 5; i++) {
       int randomIndex = random.nextInt(unavailableMixtures.size());
@@ -109,25 +109,25 @@ public class GameServiceImpl implements GameService {
     return availableMixtures;
   }
 
-  private List<Mixture> setCoins(List<Mixture> availableMixtures, int numberOfPlayers) {
+  public List<Mixture> setCoins(List<Mixture> availableMixtures, int numberOfPlayers) {
     availableMixtures.get(0).setGoldCoin(2 * numberOfPlayers);
     availableMixtures.get(1).setSilverCoin(2 * numberOfPlayers);
     return availableMixtures;
   }
 
-  private void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
+  public void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     setUnavailableMerchants(unavailableMerchants);
     setAvailableMerchants(unavailableMerchants, availableMerchants);
   }
 
-  private List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
+  public List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
     for (Merchant merchant : merchantService.findStarterUnavailableMerchants()) {
       unavailableMerchant.add(merchant);
     }
     return unavailableMerchant;
   }
 
-  private List<Merchant> setAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
+  public List<Merchant> setAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     Random random = new Random();
     for (int i = 0; i < 6; i++) {
       int randomIndex = random.nextInt(unavailableMerchants.size());
@@ -138,7 +138,7 @@ public class GameServiceImpl implements GameService {
     return availableMerchants;
   }
 
-  private List<Alchemist> setStarterHands(List<Alchemist> alchemists) {
+  public List<Alchemist> setStarterHands(List<Alchemist> alchemists) {
     List<Merchant> starterCards = merchantService.pickUpStarterCards();
 
     alchemists.get(0).setMerchantsInHand(starterCards);
