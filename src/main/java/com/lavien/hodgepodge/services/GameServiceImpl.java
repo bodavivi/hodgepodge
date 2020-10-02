@@ -23,6 +23,7 @@ public class GameServiceImpl implements GameService {
   private final MerchantService merchantService;
   private final GameRepository gameRepository;
   private final AlchemistRepository alchemistRepository;
+  private final Random random;
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService,
@@ -31,6 +32,7 @@ public class GameServiceImpl implements GameService {
     this.merchantService = merchantService;
     this.gameRepository = gameRepository;
     this.alchemistRepository = alchemistRepository;
+    this.random = new Random();
   }
 
   @Override
@@ -58,9 +60,8 @@ public class GameServiceImpl implements GameService {
 
   public List<Alchemist> randomizeAlchemist(List<Alchemist> alchemists) {
     List<Alchemist> alchemistsRandomOrder = new ArrayList<>();
-    Random random = new Random();
     for (int i = 0; i < alchemists.size(); i++) {
-      int nextAlchemist = random.nextInt(alchemists.size());
+      int nextAlchemist = this.random.nextInt(alchemists.size());
       alchemistsRandomOrder.add(alchemists.get(nextAlchemist));
       alchemists.remove(nextAlchemist);
       i--;
@@ -99,9 +100,8 @@ public class GameServiceImpl implements GameService {
   }
 
   public List<Mixture> setStarterAvailableMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
-    Random random = new Random();
     for (int i = 0; i < 5; i++) {
-      int randomIndex = random.nextInt(unavailableMixtures.size());
+      int randomIndex = this.random.nextInt(unavailableMixtures.size());
       availableMixtures.add(unavailableMixtures.get(randomIndex));
       unavailableMixtures.remove(unavailableMixtures.get(randomIndex));
       this.mixtureService.save(availableMixtures.get(i));
@@ -117,7 +117,7 @@ public class GameServiceImpl implements GameService {
 
   public void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     setUnavailableMerchants(unavailableMerchants);
-    setAvailableMerchants(unavailableMerchants, availableMerchants);
+    setStarterAvailableMerchants(unavailableMerchants, availableMerchants);
   }
 
   public List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
@@ -127,10 +127,9 @@ public class GameServiceImpl implements GameService {
     return unavailableMerchant;
   }
 
-  public List<Merchant> setAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
-    Random random = new Random();
+  public List<Merchant> setStarterAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     for (int i = 0; i < 6; i++) {
-      int randomIndex = random.nextInt(unavailableMerchants.size());
+      int randomIndex = this.random.nextInt(unavailableMerchants.size());
       availableMerchants.add(unavailableMerchants.get(randomIndex));
       unavailableMerchants.remove(randomIndex);
       this.merchantService.save(availableMerchants.get(i));
