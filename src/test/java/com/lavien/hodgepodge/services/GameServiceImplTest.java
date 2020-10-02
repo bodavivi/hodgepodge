@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,14 +37,20 @@ class GameServiceImplTest {
   private MixtureService mixtureService;
   private List<Alchemist> alchemists;
   public static final String GAMECODE = "testCode";
+  public List<Mixture> mixtures;
+  public Random randomNumberMock;
 
   @BeforeEach
   public void setUp() {
     this.gameRepository = mock(GameRepository.class);
     this.mixtureService = mock(MixtureService.class);
-    this.gameService = new GameServiceImpl(this.mixtureService, mock(MerchantService.class),
-        gameRepository, mock(AlchemistRepository.class));
+    this.randomNumberMock = mock(Random.class);
+    this.gameService = new GameServiceImpl(
+        this.mixtureService, mock(MerchantService.class),
+        this.gameRepository, mock(AlchemistRepository.class));
+
     this.alchemists = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
+    this.mixtures = new ArrayList<>(Arrays.asList(new Mixture(3, 1, 1, 1, 1), new Mixture(7, 2, 2, 2, 2)));
   }
 
   @Test
@@ -194,6 +201,7 @@ class GameServiceImplTest {
     this.alchemists.addAll(new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist(), new Alchemist())));
     List<Alchemist> result = this.gameService.randomizeAlchemist(this.alchemists);
 
+    // TODO random!
     assertNotNull(result);
     assertEquals(5, result.size());
   }
@@ -225,26 +233,35 @@ class GameServiceImplTest {
   }
 
   @Test
-  public void setStarterUnavailablefMixtures_ReturnAllMixtures_ThereAreTwoMixtures() {
-    Mixture test1 = new Mixture(7, 2, 1, 0, 0);
-    Mixture test2 = new Mixture(8, 3, 1, 0, 0);
-    List<Mixture> mixtures = new ArrayList<>(Arrays.asList(test1, test2));
+  public void setStarterUnavailablefMixtures_ReturnAllMixtures_ThereAre2Mixtures() {
+    when(this.mixtureService.findAll()).thenReturn(this.mixtures);
 
-   when(this.mixtureService.findAll()).thenReturn(mixtures);
+    List<Mixture> result = this.gameService.setStarterUnavailablefMixtures(new ArrayList<>());
 
-   List<Mixture> result = this.gameService.setStarterUnavailablefMixtures(new ArrayList<>());
+    assertNotNull(result);
+    assertEquals(2, result.size());
+    assertEquals(3, result.get(0).getPoint());
+    assertEquals(7, result.get(1).getPoint());
 
-   assertNotNull(result);
-   assertEquals(2, result.size());
-   assertEquals(7, result.get(0).getPoint());
-   assertEquals(8, result.get(1).getPoint());
-
-   verify(this.mixtureService).findAll();
+    verify(this.mixtureService).findAll();
   }
 
   @Test
-  public void setStarterAvailablefMixtures_ReturnAllMixtures_ThereAreTwoMixtures() {
-    fail();
+  public void setStarterAvailablefMixtures_Return5RandomMixtures_ThereAre6Mixtures() {
+    this.mixtures.addAll(new ArrayList<>(Arrays.asList(
+        new Mixture(10, 1, 2, 3, 4),
+        new Mixture(11, 1, 2, 3, 4),
+        new Mixture(12, 1, 2, 3, 4),
+        new Mixture(13, 1, 2, 3, 4))));
+
+    // save?! csak void lehet doNothing()
+    doNothing().when(this.mixtureService).save(any());
+
+    List<Mixture> result = this.gameService.setStarterAvailableMixtures(this.mixtures, new ArrayList<>());
+
+    // TODO random!
+    assertNotNull(result);
+    assertEquals(5, result.size());
   }
 
 }
