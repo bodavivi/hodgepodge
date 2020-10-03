@@ -27,12 +27,12 @@ public class GameServiceImpl implements GameService {
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService,
-      GameRepository gameRepository, AlchemistRepository alchemistRepository) {
+      GameRepository gameRepository, AlchemistRepository alchemistRepository, Random random) {
     this.mixtureService = mixtureService;
     this.merchantService = merchantService;
     this.gameRepository = gameRepository;
     this.alchemistRepository = alchemistRepository;
-    this.random = new Random();
+    this.random = random;
   }
 
   @Override
