@@ -116,11 +116,11 @@ public class GameServiceImpl implements GameService {
   }
 
   public void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
-    setUnavailableMerchants(unavailableMerchants);
+    setStarterUnavailableMerchants(unavailableMerchants);
     setStarterAvailableMerchants(unavailableMerchants, availableMerchants);
   }
 
-  public List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
+  public List<Merchant> setStarterUnavailableMerchants(List<Merchant> unavailableMerchant) {
     for (Merchant merchant : this.merchantService.findStarterUnavailableMerchants()) {
       unavailableMerchant.add(merchant);
     }
