@@ -2,6 +2,8 @@ package com.lavien.hodgepodge.services;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.isA;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -47,10 +49,11 @@ class GameServiceImplTest {
     this.randomNumberMock = mock(Random.class);
     this.gameService = new GameServiceImpl(
         this.mixtureService, mock(MerchantService.class),
-        this.gameRepository, mock(AlchemistRepository.class));
+        this.gameRepository, mock(AlchemistRepository.class),
+        this.randomNumberMock);
 
     this.alchemists = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
-    this.mixtures = new ArrayList<>(Arrays.asList(new Mixture(3, 1, 1, 1, 1), new Mixture(7, 2, 2, 2, 2)));
+    this.mixtures = new ArrayList<>(Arrays.asList(new Mixture(10, 1, 1, 1, 1), new Mixture(11, 2, 2, 2, 2)));
   }
 
   @Test
@@ -190,20 +193,34 @@ class GameServiceImplTest {
 
   @Test
   public void randomizeAlchemist_ReturnRandomOrder_ListWith2Alchemists() {
+    this.alchemists.get(0).setId(1L);
     List<Alchemist> result = this.gameService.randomizeAlchemist(this.alchemists);
+
+    when(this.randomNumberMock.nextInt(anyInt())).thenReturn(1).thenReturn(2);
 
     assertNotNull(result);
     assertEquals(2, result.size());
+    assertEquals(1, result.get(0).getId());
+
+    verify(this.randomNumberMock, times(2)).nextInt(anyInt());
   }
 
   @Test
   public void randomizeAlchemist_ReturnRandomOrder_ListWith5Alchemists() {
     this.alchemists.addAll(new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist(), new Alchemist())));
+    this.alchemists.get(0).setId(1L);
+    this.alchemists.get(4).setId(5L);
     List<Alchemist> result = this.gameService.randomizeAlchemist(this.alchemists);
 
-    // TODO random!
+    when(this.randomNumberMock.nextInt(anyInt()))
+        .thenReturn(1).thenReturn(2).thenReturn(3).thenReturn(4).thenReturn(5);
+
     assertNotNull(result);
     assertEquals(5, result.size());
+    assertEquals(1, result.get(0).getId());
+    assertEquals(5, result.get(4).getId());
+
+    verify(this.randomNumberMock, times(5)).nextInt(anyInt());
   }
 
   @Test
@@ -233,6 +250,17 @@ class GameServiceImplTest {
   }
 
   @Test
+  public void setStarterMixtures_CallCorrespondingMethods_ValidArguments() {
+    GameServiceImpl gameServiceMock = mock(GameServiceImpl.class);
+
+    doNothing().when(gameServiceMock).setStarterMixtures(isA(List.class), isA(List.class));
+    gameServiceMock.setStarterMixtures(new ArrayList<>(), new ArrayList<>());
+
+    verify(gameServiceMock, times(1)).setStarterMixtures(new ArrayList<>(), new ArrayList<>());
+  }
+
+
+  @Test
   public void setStarterUnavailablefMixtures_ReturnAllMixtures_ThereAre2Mixtures() {
     when(this.mixtureService.findAll()).thenReturn(this.mixtures);
 
@@ -240,8 +268,8 @@ class GameServiceImplTest {
 
     assertNotNull(result);
     assertEquals(2, result.size());
-    assertEquals(3, result.get(0).getPoint());
-    assertEquals(7, result.get(1).getPoint());
+    assertEquals(10, result.get(0).getPoint());
+    assertEquals(11, result.get(1).getPoint());
 
     verify(this.mixtureService).findAll();
   }
@@ -249,19 +277,43 @@ class GameServiceImplTest {
   @Test
   public void setStarterAvailablefMixtures_Return5RandomMixtures_ThereAre6Mixtures() {
     this.mixtures.addAll(new ArrayList<>(Arrays.asList(
-        new Mixture(10, 1, 2, 3, 4),
-        new Mixture(11, 1, 2, 3, 4),
         new Mixture(12, 1, 2, 3, 4),
-        new Mixture(13, 1, 2, 3, 4))));
+        new Mixture(13, 1, 2, 3, 4),
+        new Mixture(14, 1, 2, 3, 4),
+        new Mixture(15, 1, 2, 3, 4))));
 
-    // save?! csak void lehet doNothing()
-    doNothing().when(this.mixtureService).save(any());
+    when(this.randomNumberMock.nextInt(anyInt())).thenReturn(0);
 
     List<Mixture> result = this.gameService.setStarterAvailableMixtures(this.mixtures, new ArrayList<>());
 
-    // TODO random!
     assertNotNull(result);
     assertEquals(5, result.size());
+    assertEquals(10, result.get(0).getPoint());
+    assertEquals(11, result.get(1).getPoint());
+    assertEquals(12, result.get(2).getPoint());
+    assertEquals(13, result.get(3).getPoint());
+    assertEquals(14, result.get(4).getPoint());
+
+    verify(this.randomNumberMock, times(5)).nextInt(anyInt());
+  }
+
+  @Test
+  public void setCoins_SetGoldAndSilverCoins_ThereAre2Alchemists() {
+    List<Mixture> result = this.gameService.setCoins(this.mixtures, this.alchemists.size());
+
+    assertNotNull(result);
+    assertEquals(4, result.get(0).getGoldCoin());
+    assertEquals(4, result.get(1).getSilverCoin());
+  }
+
+  @Test
+  public void setStarterMerchants_CallCorrespondingMethods_ValidArguments() {
+    GameServiceImpl gameServiceMock = mock(GameServiceImpl.class);
+
+    doNothing().when(gameServiceMock).setStarterMerchants(isA(List.class), isA(List.class));
+    gameServiceMock.setStarterMerchants(new ArrayList<>(), new ArrayList<>());
+
+    verify(gameServiceMock, times(1)).setStarterMerchants(new ArrayList<>(), new ArrayList<>());
   }
 
 }
