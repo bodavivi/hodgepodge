@@ -63,10 +63,12 @@ class GameServiceImplTest {
         this.randomNumberMock);
 
     this.alchemists = new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist()));
-    this.mixtures = new ArrayList<>(Arrays.asList(new Mixture(10, 1, 1, 1, 1), new Mixture(11, 2, 2, 2, 2)));
+    this.mixtures = new ArrayList<>(Arrays.asList(
+        new Mixture(10, 1, 1, 1, 1),
+        new Mixture(11, 2, 2, 2, 2)));
     this.merchants = new ArrayList<>(Arrays.asList(
         new ObtainIngrMerchant(1, 1, 1, 1),
-        new TradeIngrMerchant(0, 0, 0, 1, 0, 0, 2, 0),
+        new TradeIngrMerchant(0, 0, 0, 0, 0, 0, 0, 100),
         new UpdateIngrMerchant(3)));
   }
 
@@ -80,14 +82,14 @@ class GameServiceImplTest {
 
   public void addMoreMerchants() {
     this.merchants.addAll(new ArrayList<>(Arrays.asList(
-        new UpdateIngrMerchant(3),
-        new UpdateIngrMerchant(3),
-        new UpdateIngrMerchant(3),
-        new UpdateIngrMerchant(3))));
+        new UpdateIngrMerchant(4),
+        new UpdateIngrMerchant(5),
+        new UpdateIngrMerchant(6),
+        new UpdateIngrMerchant(7))));
   }
 
   @Test
-  public void setUp_CallCorrespondingMethodsToSetUpGame_ThereIsAGameWithExistingGameCodeAndWith2Alchemists() {
+  public void setUp_CallCorrespondingMethodsToSetUpGame_ThereIsAGameWith2Alchemists() {
     Game test = new Game(GAMECODE);
     test.setId(1L);
     Game[] resultGame = new Game[1];
@@ -101,20 +103,21 @@ class GameServiceImplTest {
           return alchemistToSave[0];
         });
 
-    // randomizeAlchemist():
+    // randomizeAlchemist, setStarterAvailableMixtures, setStarterAvailableMerchants
     when(this.randomNumberMock.nextInt(anyInt())).thenReturn(0);
 
-    // setStarterUnavailableMixtures()
+    // setStarterUnavailableMixtures
     addMoreMixtures();
     when(this.mixtureService.findAll()).thenReturn(this.mixtures);
 
-    // setStarterUnavailableMerchants()
+    // setStarterUnavailableMerchants
     addMoreMerchants();
     when(this.merchantService.findStarterUnavailableMerchants()).thenReturn(this.merchants);
 
-    // setStarterHands()
-    this.merchants.remove(1);
-    when(this.merchantService.pickUpStarterCards()).thenReturn(this.merchants);
+    // setStarterHands
+    when(this.merchantService.pickUpStarterCards()).thenReturn(new ArrayList<>(Arrays.asList(
+        new ObtainIngrMerchant(2, 0, 0, 0),
+        new UpdateIngrMerchant(2))));
 
     when(this.gameRepository.save(any()))
         .then(invocationOnMock -> {
@@ -126,8 +129,18 @@ class GameServiceImplTest {
 
     assertNotNull(result);
     assertEquals(GAMECODE, result.getGameCode());
+    assertEquals(1, result.getId());
+    assertEquals(2, result.getAlchemists().size());
+    assertEquals(5, result.getAvailableMixtures().size());
+    assertEquals(6, result.getAvailableMerchants().size());
 
-    // verify ALL!
+    verify(this.gameRepository).getGameByGameCode(GAMECODE);
+    verify(this.alchemistRepository, times(2)).save(any());
+    verify(this.randomNumberMock, times(13)).nextInt(anyInt());
+    verify(this.mixtureService).findAll();
+    verify(this.merchantService).findStarterUnavailableMerchants();
+    verify(this.merchantService).pickUpStarterCards();
+    verify(this.gameRepository).save(any());
   }
 
   @Test
