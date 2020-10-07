@@ -87,6 +87,7 @@ public class GameServiceImpl implements GameService {
     return alchemists;
   }
 
+  // TODO kell ez a method egyáltalán?
   public void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
     setStarterUnavailablefMixtures(unavailableMixtures);
     setStarterAvailableMixtures(unavailableMixtures, availableMixtures);
@@ -115,6 +116,7 @@ public class GameServiceImpl implements GameService {
     return availableMixtures;
   }
 
+  // TODO kell ez a method egyáltalán?
   public void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     setStarterUnavailableMerchants(unavailableMerchants);
     setStarterAvailableMerchants(unavailableMerchants, availableMerchants);

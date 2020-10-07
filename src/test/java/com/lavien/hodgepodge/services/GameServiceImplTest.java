@@ -133,7 +133,7 @@ class GameServiceImplTest {
     doNothing().when(gameServiceMock).setStarterMixtures(isA(List.class), isA(List.class));
     gameServiceMock.setStarterMixtures(new ArrayList<>(), new ArrayList<>());
 
-    verify(gameServiceMock, times(1)).setStarterMixtures(new ArrayList<>(), new ArrayList<>());
+    verify(gameServiceMock).setStarterMixtures(new ArrayList<>(), new ArrayList<>());
   }
 
 
@@ -224,15 +224,36 @@ class GameServiceImplTest {
   }
 
   @Test
-  public void setStarterHands_SetStarterMerchantCardsAndReturnAlchemists_ThereAreTwoAlchemists() {
+  public void setStarterHands_SetStarterMerchantCardsAndReturnAlchemists_ThereAre2Alchemists() {
     this.merchants.remove(1);
     when(this.merchantService.pickUpStarterCards()).thenReturn(this.merchants);
 
     List<Alchemist> result = this.gameService.setStarterHands(this.alchemists);
 
     assertNotNull(result);
+    assertEquals(2, result.size());
     assertEquals(2, result.get(0).getMerchantsInHand().size());
     assertEquals(2, result.get(1).getMerchantsInHand().size());
+
+    verify(this.merchantService).pickUpStarterCards();
+  }
+
+  @Test
+  public void setStarterHands_SetStarterMerchantCardsAndReturnAlchemists_ThereAre5Alchemists() {
+    this.alchemists.addAll(new ArrayList<>(Arrays.asList(new Alchemist(), new Alchemist(), new Alchemist())));
+
+    this.merchants.remove(1);
+    when(this.merchantService.pickUpStarterCards()).thenReturn(this.merchants);
+
+    List<Alchemist> result = this.gameService.setStarterHands(this.alchemists);
+
+    assertNotNull(result);
+    assertEquals(5, result.size());
+    assertEquals(2, result.get(0).getMerchantsInHand().size());
+    assertEquals(2, result.get(1).getMerchantsInHand().size());
+    assertEquals(2, result.get(2).getMerchantsInHand().size());
+    assertEquals(2, result.get(3).getMerchantsInHand().size());
+    assertEquals(2, result.get(4).getMerchantsInHand().size());
 
     verify(this.merchantService).pickUpStarterCards();
   }
