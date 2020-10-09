@@ -23,20 +23,22 @@ public class GameServiceImpl implements GameService {
   private final MerchantService merchantService;
   private final GameRepository gameRepository;
   private final AlchemistRepository alchemistRepository;
+  private final Random random;
 
   @Autowired
   public GameServiceImpl(MixtureService mixtureService, MerchantService merchantService,
-      GameRepository gameRepository, AlchemistRepository alchemistRepository) {
+      GameRepository gameRepository, AlchemistRepository alchemistRepository, Random random) {
     this.mixtureService = mixtureService;
     this.merchantService = merchantService;
     this.gameRepository = gameRepository;
     this.alchemistRepository = alchemistRepository;
+    this.random = random;
   }
 
   @Override
   public Game setUp(List<Alchemist> alchemists, String gameCode) {
     Game game = getGameByGameCode(gameCode);
-    alchemists.forEach(alchemistRepository::save);
+    alchemists.forEach(this.alchemistRepository::save);
     alchemists.forEach(game::addAlchemist);
 
     //1. Alchemistek sorrendje random beállítva
@@ -52,15 +54,14 @@ public class GameServiceImpl implements GameService {
     //6. Kezdokartyak
     setStarterHands(game.getAlchemists());
     // 7. Beallitasok mentese
-    gameRepository.save(game);
+    this.gameRepository.save(game);
     return game;
   }
 
-  private ArrayList<Alchemist> randomizeAlchemist(List<Alchemist> alchemists) {
-    ArrayList<Alchemist> alchemistsRandomOrder = new ArrayList<>();
-    Random random = new Random();
+  public List<Alchemist> randomizeAlchemist(List<Alchemist> alchemists) {
+    List<Alchemist> alchemistsRandomOrder = new ArrayList<>();
     for (int i = 0; i < alchemists.size(); i++) {
-      int nextAlchemist = random.nextInt(alchemists.size());
+      int nextAlchemist = this.random.nextInt(alchemists.size());
       alchemistsRandomOrder.add(alchemists.get(nextAlchemist));
       alchemists.remove(nextAlchemist);
       i--;
@@ -68,7 +69,7 @@ public class GameServiceImpl implements GameService {
     return alchemistsRandomOrder;
   }
 
-  private List<Alchemist> setUpStarterIngredients(List<Alchemist> alchemists) {
+  public List<Alchemist> setUpStarterIngredients(List<Alchemist> alchemists) {
     alchemists.get(0).setIngrRoot(3);
     alchemists.get(1).setIngrRoot(4);
 
@@ -86,60 +87,60 @@ public class GameServiceImpl implements GameService {
     return alchemists;
   }
 
-  private void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
+  // TODO kell ez a method egyáltalán?
+  public void setStarterMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
     setStarterUnavailablefMixtures(unavailableMixtures);
     setStarterAvailableMixtures(unavailableMixtures, availableMixtures);
   }
 
-  private List<Mixture> setStarterUnavailablefMixtures(List<Mixture> unavailableMixtures) {
-    for (Mixture mixture : mixtureService.findAll()) {
+  public List<Mixture> setStarterUnavailablefMixtures(List<Mixture> unavailableMixtures) {
+    for (Mixture mixture : this.mixtureService.findAll()) {
       unavailableMixtures.add(mixture);
     }
     return unavailableMixtures;
   }
 
-  private List<Mixture> setStarterAvailableMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
-    Random random = new Random();
+  public List<Mixture> setStarterAvailableMixtures(List<Mixture> unavailableMixtures, List<Mixture> availableMixtures) {
     for (int i = 0; i < 5; i++) {
-      int randomIndex = random.nextInt(unavailableMixtures.size());
+      int randomIndex = this.random.nextInt(unavailableMixtures.size());
       availableMixtures.add(unavailableMixtures.get(randomIndex));
       unavailableMixtures.remove(unavailableMixtures.get(randomIndex));
-      mixtureService.save(availableMixtures.get(i));
+      this.mixtureService.save(availableMixtures.get(i));
     }
     return availableMixtures;
   }
 
-  private List<Mixture> setCoins(List<Mixture> availableMixtures, int numberOfPlayers) {
+  public List<Mixture> setCoins(List<Mixture> availableMixtures, int numberOfPlayers) {
     availableMixtures.get(0).setGoldCoin(2 * numberOfPlayers);
     availableMixtures.get(1).setSilverCoin(2 * numberOfPlayers);
     return availableMixtures;
   }
 
-  private void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
-    setUnavailableMerchants(unavailableMerchants);
-    setAvailableMerchants(unavailableMerchants, availableMerchants);
+  // TODO kell ez a method egyáltalán?
+  public void setStarterMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
+    setStarterUnavailableMerchants(unavailableMerchants);
+    setStarterAvailableMerchants(unavailableMerchants, availableMerchants);
   }
 
-  private List<Merchant> setUnavailableMerchants(List<Merchant> unavailableMerchant) {
-    for (Merchant merchant : merchantService.findStarterUnavailableMerchants()) {
+  public List<Merchant> setStarterUnavailableMerchants(List<Merchant> unavailableMerchant) {
+    for (Merchant merchant : this.merchantService.findStarterUnavailableMerchants()) {
       unavailableMerchant.add(merchant);
     }
     return unavailableMerchant;
   }
 
-  private List<Merchant> setAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
-    Random random = new Random();
+  public List<Merchant> setStarterAvailableMerchants(List<Merchant> unavailableMerchants, List<Merchant> availableMerchants) {
     for (int i = 0; i < 6; i++) {
-      int randomIndex = random.nextInt(unavailableMerchants.size());
+      int randomIndex = this.random.nextInt(unavailableMerchants.size());
       availableMerchants.add(unavailableMerchants.get(randomIndex));
       unavailableMerchants.remove(randomIndex);
-      merchantService.save(availableMerchants.get(i));
+      this.merchantService.save(availableMerchants.get(i));
     }
     return availableMerchants;
   }
 
-  private List<Alchemist> setStarterHands(List<Alchemist> alchemists) {
-    List<Merchant> starterCards = merchantService.pickUpStarterCards();
+  public List<Alchemist> setStarterHands(List<Alchemist> alchemists) {
+    List<Merchant> starterCards = this.merchantService.pickUpStarterCards();
 
     alchemists.get(0).setMerchantsInHand(starterCards);
     alchemists.get(1).setMerchantsInHand(starterCards);
@@ -171,7 +172,7 @@ public class GameServiceImpl implements GameService {
     if (!this.gameRepository.getGameByGameCode(newGame.getGameCode()).isPresent()) {
       this.gameRepository.save(newGame);
     } else throw new GameIsAlreadyExistException();
-    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameIsAlreadyExistException::new);
+    return this.gameRepository.getGameByGameCode(newGame.getGameCode()).orElseThrow(GameNotFoundException::new);
   }
 
   @Override
